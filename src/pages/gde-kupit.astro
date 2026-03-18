@@ -1,0 +1,101 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SectionHeading from "../components/SectionHeading.astro";
+import { buyChannels, marketplaces, regions } from "../data/site";
+---
+
+<BaseLayout
+  title="Где купить Pastodel"
+  description="Где купить Pastodel: сети, каналы продаж, регионы присутствия и будущие маркетплейс-направления."
+  canonical="/gde-kupit/"
+>
+  <section class="page-intro">
+    <div class="container page-intro__inner">
+      <p class="eyebrow">Где купить</p>
+      <h1>Каналы продаж и регионы развития Pastodel</h1>
+      <p>
+        Страница показывает структуру продаж бренда: офлайн-сети, сервисы
+        доставки и онлайн-направления, которые можно развивать в следующую
+        очередь.
+      </p>
+    </div>
+  </section>
+
+  <section class="section section--tight-top">
+    <div class="container">
+      <SectionHeading
+        eyebrow="Каналы"
+        title="Список сетей и каналов"
+        text="Ниже — демонстрационная структура присутствия. Ее можно быстро адаптировать под реальные договоренности и регионы запуска."
+      />
+
+      <div class="channels-grid">
+        {buyChannels.map((channel) => (
+          <article class="channel-card">
+            <h3>{channel.name}</h3>
+            <p>{channel.description}</p>
+            <ul>
+              {channel.items.map((item) => (
+                <li>{item}</li>
+              ))}
+            </ul>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <SectionHeading
+        eyebrow="Регионы"
+        title="Фокус на городах с развитым спросом на готовую еду"
+        text="Первые регионы можно использовать как основу для поэтапного масштабирования и проверки эффективности отдельных SKU."
+      />
+
+      <div class="notice-box">
+        <ul class="region-list">
+          {regions.map((region) => (
+            <li>{region}</li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <SectionHeading
+        eyebrow="Онлайн"
+        title="Маркетплейсы и доставка"
+        text="Этот блок сохранен как заглушка для будущего подключения. В текущей версии он помогает показать вектор масштабирования бренда."
+      />
+
+      <div class="cards-grid">
+        {marketplaces.map((item) => (
+          <article class="partner-card">
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="cta-strip surface-card">
+        <p class="eyebrow">Нужен конкретный SKU?</p>
+        <h2>Если вы ищете конкретный вкус, отправьте запрос через контакты</h2>
+        <p>
+          Так страницу можно использовать и для B2C-навигации, и для входящих
+          B2B-запросов от категорийных менеджеров или региональных партнеров.
+        </p>
+        <div class="button-group">
+          <a class="button" href="/katalog/">Перейти в каталог</a>
+          <a class="button button--ghost" href="/kontakty/">Открыть контакты</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

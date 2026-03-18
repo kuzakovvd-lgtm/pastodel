@@ -1,0 +1,64 @@
+---
+import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro";
+import { brand } from "../data/site";
+import "../styles/global.css";
+
+interface Props {
+  title: string;
+  description: string;
+  image?: string;
+  canonical?: string;
+  ogType?: "website" | "article";
+  schema?: Record<string, unknown>;
+}
+
+const {
+  title,
+  description,
+  image = "/images/og-card.svg",
+  canonical = Astro.url.pathname,
+  ogType = "website",
+  schema,
+} = Astro.props;
+
+const siteUrl = Astro.site?.toString() ?? brand.siteUrl;
+const canonicalUrl = new URL(canonical, siteUrl).toString();
+const imageUrl = new URL(image, siteUrl).toString();
+const schemaMarkup = schema ? JSON.stringify(schema, null, 2) : null;
+---
+
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
+    <meta name="theme-color" content="#f7f0e7" />
+    <meta property="og:locale" content="ru_RU" />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:site_name" content={brand.name} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={imageUrl} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={imageUrl} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    {schemaMarkup && (
+      <script type="application/ld+json" set:html={schemaMarkup} />
+    )}
+  </head>
+
+  <body>
+    <Header />
+    <main>
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

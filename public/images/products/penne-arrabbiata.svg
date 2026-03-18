@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" role="img" aria-label="Пенне Аррабьята с овощами гриль">
+  <rect width="1200" height="900" fill="#f5ebdf" />
+  <circle cx="1050" cy="170" r="150" fill="#ecd0bb" />
+  <circle cx="180" cy="180" r="130" fill="#dce5ce" />
+  <ellipse cx="600" cy="470" rx="320" ry="286" fill="#dbc9b8" opacity="0.35" />
+  <circle cx="600" cy="440" r="280" fill="#fffaf5" />
+  <circle cx="600" cy="440" r="225" fill="#eee1d4" />
+  <g fill="#d56f44">
+    <ellipse cx="570" cy="390" rx="62" ry="42" />
+    <ellipse cx="680" cy="445" rx="70" ry="46" />
+    <ellipse cx="500" cy="495" rx="62" ry="40" />
+  </g>
+  <g fill="#f0bc65">
+    <rect x="485" y="360" width="42" height="18" rx="8" transform="rotate(28 506 369)" />
+    <rect x="640" y="400" width="45" height="18" rx="8" transform="rotate(-18 662 409)" />
+    <rect x="530" y="485" width="44" height="18" rx="8" transform="rotate(16 552 494)" />
+    <rect x="705" y="490" width="44" height="18" rx="8" transform="rotate(36 727 499)" />
+  </g>
+  <rect x="730" y="336" width="36" height="18" rx="8" fill="#628148" transform="rotate(30 748 345)" />
+  <rect x="450" y="544" width="34" height="18" rx="8" fill="#628148" transform="rotate(-18 467 553)" />
+  <circle cx="636" cy="336" r="12" fill="#f4dca8" />
+</svg>

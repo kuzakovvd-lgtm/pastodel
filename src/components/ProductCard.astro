@@ -1,0 +1,49 @@
+---
+import { flavorLabels, type Product } from "../data/products";
+
+interface Props {
+  product: Product;
+}
+
+const { product } = Astro.props;
+---
+
+<article
+  class="product-card"
+  data-card
+  data-line={product.line}
+  data-flavors={product.flavorKeys.join(" ")}
+>
+  <a class="product-card__media" href={`/katalog/${product.slug}/`}>
+    <img
+      src={product.image}
+      alt={product.title}
+      width="960"
+      height="720"
+      loading="lazy"
+    />
+  </a>
+
+  <div class="product-card__content">
+    <div class="product-card__meta">
+      <span class="pill">{product.lineLabel}</span>
+      <span class="product-card__weight">{product.weightLabel}</span>
+    </div>
+
+    <h3>
+      <a href={`/katalog/${product.slug}/`}>{product.title}</a>
+    </h3>
+    <p class="product-card__subtitle">{product.subtitle}</p>
+    <p class="product-card__summary">{product.summary}</p>
+
+    <ul class="tag-list" aria-label="Профиль вкуса">
+      {product.flavorKeys.map((key) => (
+        <li>{flavorLabels[key]}</li>
+      ))}
+    </ul>
+
+    <a class="button button--ghost" href={`/katalog/${product.slug}/`}>
+      Смотреть продукт
+    </a>
+  </div>
+</article>

@@ -1,0 +1,262 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SectionHeading from "../components/SectionHeading.astro";
+import {
+  businessMetrics,
+  marketFacts,
+  networkBenefits,
+  partnerAdvantages,
+  partnerAssortment,
+  productionCapabilities,
+  retailProblems,
+} from "../data/site";
+---
+
+<BaseLayout
+  title="Партнерам Pastodel — линейка 400 г для федеральных сетей"
+  description="Pastodel для федеральных сетей и дистрибьюторов: рост категории, семейный формат 400 г, аргументы ввода и производственные масштабы."
+  canonical="/partneram/"
+>
+  <section class="page-intro">
+    <div class="container page-intro__inner">
+      <p class="eyebrow">Партнерам</p>
+      <h1>Pastodel для федеральных сетей, дистрибьюторов и пилотных запусков</h1>
+      <p>
+        Раздел обновлен по данным из презентации: теперь здесь отражены реальные
+        аргументы линейки 400 г, проблемы категории, решение для полки и
+        производственные масштабы.
+      </p>
+    </div>
+  </section>
+
+  <section class="section section--tight-top">
+    <div class="container">
+      <SectionHeading
+        eyebrow="Рынок"
+        title="Категория замороженной готовой еды продолжает расти"
+        text="На этом строится основная логика ввода: покупатель уже привык к быстрым решениям, а заморозка дает сети более предсказуемую категорию."
+      />
+
+      <div class="cards-grid">
+        {marketFacts.map((item) => (
+          <article class="feature-card">
+            <p class="eyebrow">{item.value}</p>
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <SectionHeading
+        eyebrow="Проблема"
+        title="Почему категории не хватает именно такого формата"
+        text="В презентации хорошо показано рыночное окно: полка перегружена сложными SKU, а семейная заморозка 400-500 г развита слабо."
+      />
+
+      <div class="feature-grid">
+        {retailProblems.map((item) => (
+          <article class="feature-card">
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <SectionHeading
+        eyebrow="Преимущества"
+        title="Почему Pastodel удобно вводить в матрицу"
+        text="Ниже собраны ключевые аргументы из презентации, уже переложенные в формат сайта для переговоров с сетью."
+      />
+
+      <div class="feature-grid">
+        {partnerAdvantages.map((item) => (
+          <article class="feature-card">
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <SectionHeading
+        eyebrow="Решение"
+        title="Что получает сеть при вводе линейки"
+        text="Продукт подается не как отдельная красивая новинка, а как прагматичное решение под быстрые семейные ужины и регулярную покупку."
+      />
+
+      <div class="split-grid">
+        <article class="partner-card">
+          <h2>Преимущества для матрицы</h2>
+          <ul class="detail-list detail-list--spaced">
+            {networkBenefits.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+        </article>
+
+        <article class="partner-card">
+          <p class="eyebrow">Потребительский сценарий</p>
+          <h2>Быстрый ужин остается одним из главных триггеров покупки</h2>
+          <p>
+            Формат 400 г дает понятную экономику потребления: одна упаковка
+            работает как плотный ужин для одного или как порция на двоих.
+            В презентации это подкрепляется идеей «купить быстро и часто».
+          </p>
+          <p>
+            Дополнительный аргумент для сети: паста входит в топ-5 домашних
+            ужинов, а значит, вкус и сценарий покупки уже знакомы широкой
+            аудитории.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <SectionHeading
+        eyebrow="Ассортимент"
+        title="Стартовая концепция, которую можно адаптировать под стандарты конкретной сети"
+        text="Сайт по-прежнему показывает 6 SKU, но теперь они собраны как семейная линейка с массовыми вкусами и без лишней гастрономической сложности."
+      />
+
+      <div class="partner-grid">
+        {partnerAssortment.map((item) => (
+          <article class="assortment-card">
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container split-grid">
+      <article class="partner-card">
+        <p class="eyebrow">Производственные возможности</p>
+        <h2>Готовность к пилотам и расширению ассортимента</h2>
+        <ul class="detail-list detail-list--spaced">
+          {productionCapabilities.map((item) => (
+            <li>{item}</li>
+          ))}
+        </ul>
+      </article>
+
+      <article class="partner-card">
+        <p class="eyebrow">Материалы</p>
+        <h2>Базовый пакет для первичного обсуждения</h2>
+        <p>
+          Ниже размещена демонстрационная кнопка скачивания PDF. Ее можно
+          заменить на финальную коммерческую презентацию или одностраничный
+          материал после
+          согласования контента.
+        </p>
+        <div class="button-group button-group--spaced">
+          <a class="button" href="/docs/pastodel-b2b-placeholder.pdf" download>
+            Скачать PDF
+          </a>
+          <a class="button button--ghost" href="/kontakty/">Обсудить запуск</a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <SectionHeading
+        eyebrow="Масштаб"
+        title="Портфель и дистрибуция поддерживают запуск новой линейки"
+        text="Эти цифры взяты из презентации и усиливают B2B-часть сайта конкретикой, а не общими обещаниями."
+      />
+
+      <div class="cards-grid">
+        {businessMetrics.map((item) => (
+          <article class="feature-card">
+            <p class="eyebrow">{item.value}</p>
+            <h3>{item.label}</h3>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <SectionHeading
+        eyebrow="Заявка"
+        title="Форма для коммерческого запроса"
+        text="Форма собрана в статическом виде и готова к подключению через CRM, почтовый шлюз или серверный обработчик."
+      />
+
+      <form class="form-card" action="#" method="post">
+        <div class="form-grid">
+          <div class="field">
+            <label for="company">Компания</label>
+            <input id="company" name="company" type="text" placeholder="Название компании" />
+          </div>
+
+          <div class="field">
+            <label for="channel">Канал продаж</label>
+            <select id="channel" name="channel">
+              <option>Федеральная сеть</option>
+              <option>Дистрибьютор</option>
+              <option>Сервис быстрой доставки</option>
+              <option>Ресторанный канал</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="name">Контактное лицо</label>
+            <input id="name" name="name" type="text" placeholder="Имя и должность" />
+          </div>
+
+          <div class="field">
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" placeholder="partners@company.ru" />
+          </div>
+
+          <div class="field">
+            <label for="phone">Телефон</label>
+            <input id="phone" name="phone" type="tel" placeholder="+7 (___) ___-__-__" />
+          </div>
+
+          <div class="field">
+            <label for="volume">Планируемый объем</label>
+            <input id="volume" name="volume" type="text" placeholder="Например: пилот 3 SKU в 20 точках" />
+          </div>
+
+          <div class="field field--full">
+            <label for="message">Комментарий</label>
+            <textarea
+              id="message"
+              name="message"
+              placeholder="Опишите формат сотрудничества, целевой регион, интересующие линейки и сроки запуска."
+            ></textarea>
+          </div>
+        </div>
+
+        <p class="form-note">
+          Демо-версия: отправка формы не подключена. Для рабочей версии
+          достаточно привязать `action` к CRM, API-обработчику или внешнему
+          сервису форм.
+        </p>
+
+        <div class="button-group">
+          <button class="button" type="submit">Отправить заявку</button>
+        </div>
+      </form>
+    </div>
+  </section>
+</BaseLayout>

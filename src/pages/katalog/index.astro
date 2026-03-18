@@ -1,0 +1,140 @@
+---
+import ProductCard from "../../components/ProductCard.astro";
+import SectionHeading from "../../components/SectionHeading.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { flavorFilters, lineFilters, products } from "../../data/products";
+---
+
+<BaseLayout
+  title="Каталог Pastodel — линейка замороженной пасты 400 г"
+  description="Каталог Pastodel: 6 SKU замороженной пасты 400 г с фильтром по линейкам и вкусовым профилям."
+  canonical="/katalog/"
+>
+  <section class="page-intro">
+    <div class="container page-intro__inner">
+      <p class="eyebrow">Каталог</p>
+      <h1>Ассортимент Pastodel</h1>
+      <p>
+        В каталоге собраны массовые вкусы семейного формата 400 г: позиции для
+        быстрого ужина, понятной полки и первого запуска в сети. Фильтр работает
+        без тяжелого клиентского слоя: если JavaScript отключен, весь ассортимент
+        остается доступен целиком.
+      </p>
+    </div>
+  </section>
+
+  <section class="section section--tight-top">
+    <div class="container">
+      <SectionHeading
+        eyebrow="Линейки и вкусы"
+        title="Подберите SKU под полку, промонабор или домашний сценарий"
+        text="Можно отбирать продукты по логике ассортимента и по вкусовому профилю. Все карточки ведут на отдельные страницы продуктов."
+      />
+
+      <div class="catalog-toolbar">
+        <div class="filter-stack">
+          <div class="filter-row">
+            <strong>Линейка</strong>
+            <div class="filter-chips" data-filter-group="line">
+              {lineFilters.map((filter, index) => (
+                <button
+                  class:list={["filter-chip", index === 0 && "is-active"]}
+                  type="button"
+                  data-filter-button
+                  data-group="line"
+                  data-value={filter.key}
+                  aria-pressed={index === 0 ? "true" : "false"}
+                >
+                  {filter.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div class="filter-row">
+            <strong>Вкус</strong>
+            <div class="filter-chips" data-filter-group="flavor">
+              {flavorFilters.map((filter, index) => (
+                <button
+                  class:list={["filter-chip", index === 0 && "is-active"]}
+                  type="button"
+                  data-filter-button
+                  data-group="flavor"
+                  data-value={filter.key}
+                  aria-pressed={index === 0 ? "true" : "false"}
+                >
+                  {filter.label}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <p class="form-note">
+          Витрина уже готова к статическому деплою. Если фильтр не активен,
+          просто просматривайте весь каталог целиком.
+        </p>
+      </div>
+
+      <div class="products-grid" id="catalog-grid">
+        {products.map((product) => (
+          <ProductCard product={product} />
+        ))}
+      </div>
+
+      <p class="catalog-empty" data-empty hidden>
+        По выбранным параметрам ничего не найдено. Сбросьте фильтры и
+        посмотрите все вкусы.
+      </p>
+    </div>
+  </section>
+
+  <script is:inline>
+    const state = { line: "all", flavor: "all" };
+    const filterButtons = Array.from(document.querySelectorAll("[data-filter-button]"));
+    const cards = Array.from(document.querySelectorAll("[data-card]"));
+    const emptyState = document.querySelector("[data-empty]");
+
+    const applyFilters = () => {
+      let visibleCount = 0;
+
+      cards.forEach((card) => {
+        const line = card.dataset.line || "";
+        const flavors = (card.dataset.flavors || "").split(" ").filter(Boolean);
+        const lineMatch = state.line === "all" || line === state.line;
+        const flavorMatch =
+          state.flavor === "all" || flavors.includes(state.flavor);
+        const shouldShow = lineMatch && flavorMatch;
+
+        card.hidden = !shouldShow;
+        if (shouldShow) visibleCount += 1;
+      });
+
+      if (emptyState) {
+        emptyState.hidden = visibleCount !== 0;
+      }
+    };
+
+    filterButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const group = button.dataset.group;
+        const value = button.dataset.value || "all";
+        if (!group) return;
+
+        state[group] = value;
+
+        filterButtons
+          .filter((candidate) => candidate.dataset.group === group)
+          .forEach((candidate) => {
+            const active = candidate === button;
+            candidate.classList.toggle("is-active", active);
+            candidate.setAttribute("aria-pressed", String(active));
+          });
+
+        applyFilters();
+      });
+    });
+
+    applyFilters();
+  </script>
+</BaseLayout>

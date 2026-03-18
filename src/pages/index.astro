@@ -1,0 +1,304 @@
+---
+import ProductCard from "../components/ProductCard.astro";
+import SectionHeading from "../components/SectionHeading.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { products } from "../data/products";
+import {
+  brand,
+  buyChannels,
+  cookingSteps,
+  heroStats,
+  homeBenefits,
+  marketFacts,
+  retailProblems,
+  regions,
+} from "../data/site";
+
+const featuredProducts = products.filter((product) => product.popular).slice(0, 3);
+
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: brand.name,
+  url: brand.siteUrl,
+  logo: `${brand.siteUrl}/favicon.svg`,
+  description: brand.slogan,
+  email: brand.email,
+  telephone: brand.phone,
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: brand.address,
+    addressCountry: "RU",
+  },
+};
+---
+
+<BaseLayout
+  title="Pastodel — замороженная паста 400 г для быстрых семейных ужинов"
+  description="Pastodel — новая линейка замороженной пасты 400 г: массовые вкусы, готовность за 6-7 минут и решение для федеральных сетей."
+  image="/images/og-card.svg"
+  schema={organizationSchema}
+>
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow">Предложение для федеральных сетей</p>
+        <h1>Новая линейка замороженной пасты 400 г для быстрых семейных ужинов</h1>
+        <p class="lead">
+          Pastodel переводит продуктовую презентацию в готовый бренд-сайт:
+          семейный формат 400 г, понятные массовые вкусы, готовность за 6-7
+          минут и логика запуска, подходящая для федеральной полки.
+        </p>
+
+        <div class="button-group">
+          <a class="button" href="/katalog/">Смотреть каталог</a>
+          <a class="button button--secondary" href="/gde-kupit/">Где купить</a>
+          <a class="button button--ghost" href="/partneram/">Партнерам</a>
+        </div>
+
+        <ul class="stats-list" aria-label="Ключевые показатели бренда">
+          {heroStats.map((item) => (
+            <li>
+              <strong>{item.value}</strong>
+              <span>{item.label}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div class="hero-art surface-card">
+        <div class="hero-visual">
+          <div class="hero-plate" aria-hidden="true"></div>
+        </div>
+        <div class="hero-card-note hero-card-note--top">
+          <strong>Формат 400 г</strong>
+          <span>Одна SKU закрывает два сценария: сытно одному или на двоих.</span>
+        </div>
+        <div class="hero-card-note hero-card-note--bottom">
+          <strong>6-7 минут до готовности</strong>
+          <span>Оптимально для ужина после работы и повторной покупки.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="about">
+    <div class="container">
+      <SectionHeading
+        eyebrow="О бренде"
+        title="Pastodel делает ставку на понятный семейный формат и массовые вкусы"
+        text="После просмотра продуктовой презентации сайт перестроен под реальную логику линейки: быстрые ужины, понятный выбор на полке и коммерческий сценарий для федеральных сетей."
+      />
+
+      <div class="split-grid">
+        <article class="story-card surface-card">
+          <p>
+            В презентации продукт подается как новая линейка замороженной пасты
+            400 г для семейного формата. Главная задача не в гастрономической
+            экзотике, а в быстрых и узнаваемых блюдах для регулярной покупки.
+          </p>
+          <p>
+            Для сетей это способ укрепить замороженную категорию с меньшими
+            списаниями, а для покупателя — быстрый ужин после работы без
+            сложного выбора и без долгой готовки.
+          </p>
+          <blockquote>
+            «Понятный продукт, который покупают быстро и часто».
+          </blockquote>
+        </article>
+
+        <article class="story-card surface-card">
+          <ul class="story-list">
+            <li>Семейный формат 400 г растет быстрее одиночных порций.</li>
+            <li>Линейка строится вокруг массовых вкусов с предсказуемой оборачиваемостью.</li>
+            <li>Готовность за 6-7 минут соответствует сценарию покупки после работы.</li>
+            <li>Категория замороженной готовой еды уже достигла 350 млрд ₽ и продолжает рост.</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <SectionHeading
+        eyebrow="Категория"
+        title="Почему этот формат выглядит коммерчески сильным"
+        text="Презентация дает понятную опору для сайта: рынок растет, покупателю нужен быстрый результат, а семейный формат 400 г пока представлен слабее, чем мог бы."
+      />
+
+      <div class="cards-grid">
+        {marketFacts.map((fact) => (
+          <article class="feature-card">
+            <p class="eyebrow">{fact.value}</p>
+            <h3>{fact.title}</h3>
+            <p>{fact.text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="benefits">
+    <div class="container">
+      <SectionHeading
+        eyebrow="Преимущества"
+        title="Что делает Pastodel сильным продуктом для полки и дома"
+        text="Ниже уже не абстрактные брендовые преимущества, а логика из презентации: семейный формат, массовые вкусы и устойчивость категории для сети."
+      />
+
+      <div class="feature-grid">
+        {homeBenefits.map((benefit) => (
+          <article class="feature-card">
+            <h3>{benefit.title}</h3>
+            <p>{benefit.text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <SectionHeading
+        eyebrow="Проблема категории"
+        title="Почему новая линейка может занять понятное место на полке"
+        text="Презентация прямо описывает, где есть рыночное окно: избыток сложных SKU, высокая доля списаний в охлажденной кулинарии и слабое развитие семейного формата."
+      />
+
+      <div class="feature-grid">
+        {retailProblems.map((item) => (
+          <article class="feature-card">
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="popular">
+    <div class="container">
+      <SectionHeading
+        eyebrow="Популярные вкусы"
+        title="Три SKU, с которых логично начинать запуск"
+        text="Под презентацию лучше всего работают массовые вкусы с низким барьером выбора: сливочная классика, Карбонара и томатный мясной профиль."
+      />
+
+      <div class="products-grid">
+        {featuredProducts.map((product) => (
+          <ProductCard product={product} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="cook">
+    <div class="container">
+      <SectionHeading
+        eyebrow="Как готовить"
+        title="Готовая паста без сложной кухни"
+        text="Весь пользовательский сценарий строится вокруг скорости, чистоты приготовления и стабильной подачи."
+      />
+
+      <div class="steps-grid">
+        {cookingSteps.map((step, index) => (
+          <article class="step-card">
+            <p class="eyebrow">Шаг {index + 1}</p>
+            <h3>{step.title}</h3>
+            <p>{step.text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="buy">
+    <div class="container">
+      <SectionHeading
+        eyebrow="Где купить"
+        title="Покупатель видит бренд в ритейле, доставке и онлайн-каналах"
+        text="Основной акцент презентации — федеральные сети, но сайт сохраняет и B2C-логику для будущих доставок и онлайн-каналов."
+      />
+
+      <div class="channels-grid">
+        {buyChannels.map((channel) => (
+          <article class="channel-card">
+            <h3>{channel.name}</h3>
+            <p>{channel.description}</p>
+            <ul>
+              {channel.items.map((item) => (
+                <li>{item}</li>
+              ))}
+            </ul>
+          </article>
+        ))}
+      </div>
+
+      <div class="notice-box notice-box--spaced">
+        <strong>Текущие приоритетные регионы</strong>
+        <ul class="region-list">
+          {regions.map((region) => (
+            <li>{region}</li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="b2b">
+    <div class="container">
+      <div class="partner-band surface-card">
+        <p class="eyebrow">Для партнеров</p>
+        <h2>Pastodel готов к пилотному запуску и масштабированию успешных SKU</h2>
+        <p>
+          Из презентации в сайт перенесены ключевые аргументы для переговоров:
+          категория растет, формат 400 г закрывает семейный сценарий, а заморозка
+          дает сети более комфортную экономику по списаниям.
+        </p>
+        <div class="button-group">
+          <a class="button" href="/partneram/">Открыть B2B-раздел</a>
+          <a class="button button--ghost" href="/docs/pastodel-b2b-placeholder.pdf" download>
+            Скачать PDF
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="contact">
+    <div class="container">
+      <SectionHeading
+        eyebrow="Контакты"
+        title="Открыты к коммерческим вопросам, дистрибуции и retail-запускам"
+        text="Если нужен пилот в сети, тест ассортимента или обсуждение собственного канала продаж, Pastodel можно быстро подготовить к диалогу."
+      />
+
+      <div class="contacts-grid">
+        <article class="contact-card">
+          <h3>Общие вопросы</h3>
+          <p>Для медиа, продукта и сайта.</p>
+          <p><a href={`mailto:${brand.email}`}>{brand.email}</a></p>
+        </article>
+
+        <article class="contact-card">
+          <h3>B2B и дистрибуция</h3>
+          <p>Для сетей, дистрибьюторов и партнеров ресторанного канала.</p>
+          <p><a href={`mailto:${brand.partnersEmail}`}>{brand.partnersEmail}</a></p>
+        </article>
+
+        <article class="contact-card">
+          <h3>Телефон</h3>
+          <p>Контакт-центр для входящих обращений.</p>
+          <p><a href={`tel:${brand.phone.replace(/[^\d+]/g, "")}`}>{brand.phone}</a></p>
+        </article>
+
+        <article class="contact-card">
+          <h3>Адрес</h3>
+          <p>Юридический и операционный блок как демонстрационная заглушка.</p>
+          <p>{brand.address}</p>
+        </article>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
