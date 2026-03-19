@@ -133,3 +133,21 @@ sudo certbot --nginx -d pastodel.ru -d www.pastodel.ru
 ```
 
 После этого Nginx автоматически добавит HTTPS-конфигурацию и редирект с HTTP, если выбран соответствующий сценарий в Certbot.
+
+## Альтернатива: ручная установка сертификата
+
+Если сертификат выдан внешним провайдером, например Timeweb, положите файлы на сервер:
+
+```bash
+/etc/ssl/pastodel/pastodel.ru.crt
+/etc/ssl/pastodel/pastodel.ru.key
+```
+
+Затем используйте `server` на `443` с параметрами:
+
+```nginx
+ssl_certificate /etc/ssl/pastodel/pastodel.ru.crt;
+ssl_certificate_key /etc/ssl/pastodel/pastodel.ru.key;
+```
+
+HTTP-сервер на `80` в таком случае должен делать редирект на `https://pastodel.ru$request_uri`.
