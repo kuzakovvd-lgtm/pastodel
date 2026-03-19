@@ -7,6 +7,7 @@ import SectionHeading from "../components/SectionHeading.astro";
   title="Политика конфиденциальности — Pastodel"
   description="Базовая политика конфиденциальности сайта Pastodel. Текст требует финальной юридической проверки перед публикацией."
   canonical="/politika-konfidentsialnosti/"
+  noindex={true}
 >
   <section class="page-intro">
     <div class="container page-intro__inner">
@@ -21,14 +22,15 @@ import SectionHeading from "../components/SectionHeading.astro";
   </section>
 
   <section class="section section--tight-top">
-    <div class="container">
+    <div class="container legal-shell">
       <SectionHeading
         eyebrow="Статус страницы"
         title="Текст требует финальной юрпроверки"
         text="На сайте пока не публикуются подтвержденные реквизиты, ответственные лица и детальная схема обработки данных. До финального запуска эта страница должна быть согласована владельцем сайта и юристом."
       />
 
-      <div class="partner-card">
+      <div class="partner-card legal-sheet">
+        <p class="legal-note">Черновой legal-контур: перед финальной публикацией нужен согласованный юридический текст.</p>
         <div class="detail-stack">
           <div>
             <h2>1. Общая рамка</h2>

@@ -7,6 +7,8 @@ interface Props {
   showHighlights?: boolean;
   showNetworkCta?: boolean;
   primaryLabel?: string;
+  imageLoading?: "lazy" | "eager";
+  imageFetchPriority?: "high" | "auto" | "low";
 }
 
 const {
@@ -14,17 +16,28 @@ const {
   showHighlights = false,
   showNetworkCta = false,
   primaryLabel = "Смотреть продукт",
+  imageLoading = "lazy",
+  imageFetchPriority = "auto",
 } = Astro.props;
 ---
 
 <article
-  class="product-card"
+  class:list={[
+    "product-card",
+    showHighlights && "product-card--rich",
+    showNetworkCta && "product-card--network",
+  ]}
   data-card
   data-line={product.line}
   data-flavors={product.flavorKeys.join(" ")}
 >
   <a class="product-card__media" href={`/katalog/${product.slug}/`}>
-    <ProductImage src={product.image} alt={product.title} />
+    <ProductImage
+      src={product.image}
+      alt={product.title}
+      loading={imageLoading}
+      fetchpriority={imageFetchPriority}
+    />
   </a>
 
   <div class="product-card__content">

@@ -105,7 +105,7 @@ const contactScenarios = [
 
   <section class="section">
     <div class="container split-grid">
-      <form class="form-card" action="#" method="post">
+      <form class="form-card" onsubmit="event.preventDefault()">
         <SectionHeading
           eyebrow="Форма запроса"
           title="Отправьте обращение по нужному сценарию"
@@ -158,7 +158,7 @@ const contactScenarios = [
         </p>
 
         <div class="button-group">
-          <button class="button" type="submit">Подготовить запрос</button>
+          <button class="button" type="button">Подготовить запрос</button>
         </div>
       </form>
 

@@ -1,21 +1,46 @@
 ---
+import { Image } from "astro:assets";
+
+import { getProductImage } from "../data/productImages";
+
 interface Props {
   src?: string;
   alt: string;
   width?: number | string;
   height?: number | string;
   loading?: "lazy" | "eager";
+  fetchpriority?: "high" | "auto" | "low";
   variant?: "card" | "detail";
 }
 
 const {
   src,
   alt,
-  width = 960,
-  height = 720,
+  width,
+  height,
   loading = "lazy",
+  fetchpriority,
   variant = "card",
 } = Astro.props;
+
+const priority = fetchpriority ?? (loading === "eager" ? "high" : "auto");
+const asset = getProductImage(src);
+const parsedWidth = typeof width === "number" ? width : Number(width);
+const parsedHeight = typeof height === "number" ? height : Number(height);
+const sourceWidth = asset?.width ?? 960;
+const sourceHeight = asset?.height ?? 960;
+const resolvedWidth = Number.isFinite(parsedWidth)
+  ? Math.min(parsedWidth, sourceWidth)
+  : sourceWidth;
+const resolvedHeight = Number.isFinite(parsedHeight)
+  ? Math.min(parsedHeight, sourceHeight)
+  : sourceHeight;
+const responsiveWidths =
+  variant === "detail" ? [320, 480, 640, 960] : [240, 320, 480, 640];
+const responsiveSizes =
+  variant === "detail"
+    ? "(max-width: 719px) calc(100vw - 52px), (max-width: 959px) calc(50vw - 40px), 42vw"
+    : "(max-width: 719px) calc(100vw - 56px), (max-width: 959px) calc(50vw - 40px), calc((100vw - 96px) / 3)";
 ---
 
 <div
@@ -23,17 +48,33 @@ const {
   data-product-image
   data-has-error={src ? "false" : "true"}
 >
-  {src && (
+  {asset ? (
+    <Image
+      src={asset}
+      alt={alt}
+      width={resolvedWidth}
+      height={resolvedHeight}
+      widths={responsiveWidths}
+      sizes={responsiveSizes}
+      loading={loading}
+      decoding="async"
+      fetchpriority={priority}
+      onload="this.closest('[data-product-image]')?.setAttribute('data-has-error', 'false');this.style.removeProperty('display');"
+      onerror="this.closest('[data-product-image]')?.setAttribute('data-has-error', 'true');this.style.display='none';"
+    />
+  ) : src ? (
     <img
       src={src}
       alt={alt}
-      width={width}
-      height={height}
+      width={resolvedWidth}
+      height={resolvedHeight}
       loading={loading}
       decoding="async"
-      onerror="this.closest('[data-product-image]').setAttribute('data-has-error', 'true'); this.remove();"
+      fetchpriority={priority}
+      onload="this.closest('[data-product-image]')?.setAttribute('data-has-error', 'false');this.style.removeProperty('display');"
+      onerror="this.closest('[data-product-image]')?.setAttribute('data-has-error', 'true');this.style.display='none';"
     />
-  )}
+  ) : null}
 
   <div class="product-image__fallback" aria-hidden="true">
     <span class="product-image__badge">Pastodel</span>

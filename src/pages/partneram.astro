@@ -292,7 +292,7 @@ const featuredB2BProducts = featuredB2BProductSlugs
 
   <section class="section">
     <div class="container split-grid">
-      <form class="form-card" action="#" method="post">
+      <form class="form-card" onsubmit="event.preventDefault()">
         <SectionHeading
           eyebrow="Старт диалога"
           title="Как начать работу"
@@ -358,7 +358,7 @@ const featuredB2BProducts = featuredB2BProductSlugs
         </p>
 
         <div class="button-group">
-          <button class="button" type="submit">Отправить запрос</button>
+          <button class="button" type="button">Отправить запрос</button>
         </div>
       </form>
 

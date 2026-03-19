@@ -1,6 +1,21 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import SectionHeading from "../components/SectionHeading.astro";
+
+const currentRoutes = [
+  {
+    title: "Обновления по ассортименту",
+    text: "До появления новостей раздел можно использовать как маршрут в каталог и карточки SKU, где уже публикуется актуальная структура линейки.",
+    href: "/katalog/",
+    cta: "Открыть каталог",
+  },
+  {
+    title: "Материалы для партнеров",
+    text: "Если нужны деловые обновления, документы или стартовые материалы, их удобнее получать через B2B-раздел и страницу документов.",
+    href: "/partneram/",
+    cta: "Перейти в B2B-раздел",
+  },
+];
 ---
 
 <BaseLayout
@@ -49,6 +64,18 @@ import SectionHeading from "../components/SectionHeading.astro";
           Раздел добавлен в архитектуру заранее, чтобы сайт мог масштабироваться
           как производственный и B2B-ресурс, а не только как продуктовый каталог.
         </p>
+      </div>
+
+      <div class="cards-grid products-grid--spaced">
+        {currentRoutes.map((item) => (
+          <article class="feature-card">
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+            <div class="button-group button-group--spaced">
+              <a class="button button--ghost" href={item.href}>{item.cta}</a>
+            </div>
+          </article>
+        ))}
       </div>
 
       <div class="cta-strip surface-card">

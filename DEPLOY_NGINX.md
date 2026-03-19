@@ -10,7 +10,7 @@
 
 ## 1. Default catch-all для всех неизвестных хостов
 
-Такой конфиг нужен, чтобы IP сервера или чужие `Host`-заголовки не открывали Pastodel по умолчанию.
+Такой конфиг нужен, чтобы IP сервера или чужие `Host`-заголовки не открывали Pastodel по умолчанию и по HTTP, и по HTTPS.
 
 ```nginx
 server {
@@ -19,6 +19,14 @@ server {
     server_name _;
 
     return 444;
+}
+
+server {
+    listen 443 ssl http2 default_server;
+    listen [::]:443 ssl http2 default_server;
+    server_name _;
+
+    ssl_reject_handshake on;
 }
 ```
 
@@ -40,6 +48,7 @@ server {
     gzip_comp_level 5;
     gzip_min_length 1024;
     gzip_proxied any;
+    gzip_vary on;
     gzip_types
         text/plain
         text/css
@@ -54,9 +63,15 @@ server {
     add_header X-Content-Type-Options "nosniff" always;
     add_header Referrer-Policy "strict-origin-when-cross-origin" always;
     add_header Permissions-Policy "geolocation=(), microphone=(), camera=()" always;
+    add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
+    error_page 404 /404.html;
 
     location / {
-        try_files $uri $uri/ $uri.html /index.html;
+        try_files $uri $uri/ $uri.html =404;
+    }
+
+    location = /404.html {
+        internal;
     }
 
     location = /favicon.svg {

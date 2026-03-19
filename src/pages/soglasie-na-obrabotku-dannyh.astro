@@ -7,6 +7,7 @@ import SectionHeading from "../components/SectionHeading.astro";
   title="Согласие на обработку данных — Pastodel"
   description="Базовая страница согласия на обработку данных для форм сайта Pastodel. Текст требует финальной юридической проверки перед публикацией."
   canonical="/soglasie-na-obrabotku-dannyh/"
+  noindex={true}
 >
   <section class="page-intro">
     <div class="container page-intro__inner">
@@ -21,14 +22,15 @@ import SectionHeading from "../components/SectionHeading.astro";
   </section>
 
   <section class="section section--tight-top">
-    <div class="container">
+    <div class="container legal-shell">
       <SectionHeading
         eyebrow="Статус страницы"
         title="Это базовая legal-заготовка под формы сайта"
         text="До публикации подтвержденных реквизитов, ответственных данных и точной схемы обработки обращений эта страница должна рассматриваться как черновой legal-контур."
       />
 
-      <div class="partner-card">
+      <div class="partner-card legal-sheet">
+        <p class="legal-note">Черновая версия для форм сайта: реквизиты оператора и финальная редакция должны быть добавлены после юрпроверки.</p>
         <div class="detail-stack">
           <div>
             <h2>1. Предмет согласия</h2>

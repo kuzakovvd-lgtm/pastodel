@@ -144,12 +144,14 @@ const lineGuide = [
       </div>
 
       <div class="products-grid" id="catalog-grid">
-        {orderedProducts.map((product) => (
+        {orderedProducts.map((product, index) => (
           <ProductCard
             product={product}
             showHighlights={true}
             showNetworkCta={true}
             primaryLabel="Открыть карточку товара"
+            imageLoading={index < 3 ? "eager" : "lazy"}
+            imageFetchPriority={index === 0 ? "high" : "auto"}
           />
         ))}
       </div>

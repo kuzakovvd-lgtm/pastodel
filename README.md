@@ -81,7 +81,7 @@ sudo mkdir -p /var/www/pastodel
 3. Загрузите содержимое `dist/` на сервер, например через `rsync`:
 
 ```bash
-rsync -av --delete dist/ user@server:/var/www/pastodel/dist/
+rsync -av --delete --exclude '.DS_Store' --exclude '._*' dist/ user@server:/var/www/pastodel/dist/
 ```
 
 4. Подключите Nginx-конфиг из файла [`DEPLOY_NGINX.md`](./DEPLOY_NGINX.md). В многосайтовой схеме используйте:
@@ -108,6 +108,23 @@ npm run build
 ```
 
 4. После сборки перенесите содержимое `dist/` в `/var/www/pastodel/` и укажите `root` в Nginx на `/var/www/pastodel`.
+
+### Чистая упаковка и выкладка с macOS
+
+Если деплой делается с macOS и проект сначала архивируется, используйте репозиторные скрипты:
+
+```bash
+./deploy/package-clean-archive.sh /tmp/pastodel-deploy.tgz
+scp /tmp/pastodel-deploy.tgz user@server:/tmp/pastodel-deploy.tgz
+ssh user@server 'ARCHIVE_PATH=/tmp/pastodel-deploy.tgz APP_DIR=/opt/pastodel WEB_ROOT=/var/www/pastodel bash /opt/pastodel/deploy/remote-deploy.sh'
+```
+
+Что делает эта схема:
+
+- исключает `._*` и `.DS_Store` из staging и архива
+- очищает xattrs только в staging-копии, не трогая рабочую директорию
+- использует `tar --format ustar`, чтобы не тащить macOS metadata в архив
+- удаляет только мусорные файлы на сервере перед сборкой и после публикации
 
 ## Формы
 

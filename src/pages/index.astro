@@ -5,7 +5,11 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import { products } from "../data/products";
 import { brand, cookingSteps, heroStats, homeBenefits } from "../data/site";
 
-const featuredProductSlugs = ["alfredo-kuritsa", "karbonara", "mak-end-chiz"];
+const featuredProductSlugs = [
+  "mak-end-chiz",
+  "vetchina-griby-slivochny-sous",
+  "primavera",
+];
 const featuredProducts = featuredProductSlugs
   .map((slug) => products.find((product) => product.slug === slug))
   .filter(Boolean);
