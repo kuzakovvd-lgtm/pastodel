@@ -1,0 +1,65 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SectionHeading from "../components/SectionHeading.astro";
+---
+
+<BaseLayout
+  title="Новости Pastodel"
+  description="Каркас новостного раздела Pastodel для будущих публикаций о запусках, новинках и партнерских кейсах."
+  canonical="/novosti/"
+>
+  <section class="page-intro">
+    <div class="container page-intro__inner">
+      <p class="eyebrow">Новости</p>
+      <h1>Новости, обновления и будущие кейсы запусков</h1>
+      <p>
+        Раздел создан как самостоятельный контентный контейнер. Сейчас он
+        намеренно не заполнен новостями, потому что в репозитории нет
+        подтвержденного набора публикаций.
+      </p>
+    </div>
+  </section>
+
+  <section class="section section--tight-top">
+    <div class="container">
+      <SectionHeading
+        eyebrow="Структура"
+        title="Каркас под редакционный контур сайта"
+        text="Сюда можно добавлять новости о запуске SKU, выходе в новые сети, обновлении линейки и публикации для партнеров."
+      />
+
+      <div class="cards-grid">
+        <article class="feature-card">
+          <h3>Запуски в сетях</h3>
+          <p>Место для подтвержденных новостей о старте продаж в новых каналах и регионах.</p>
+        </article>
+        <article class="feature-card">
+          <h3>Обновления ассортимента</h3>
+          <p>Место для публикаций о новых SKU, сезонных линейках и изменениях в матрице.</p>
+        </article>
+        <article class="feature-card">
+          <h3>Корпоративные новости</h3>
+          <p>Место для новостей о компании, производстве, выставках и партнерских инициативах.</p>
+        </article>
+      </div>
+
+      <div class="notice-box notice-box--spaced">
+        <strong>Пока публикаций нет</strong>
+        <p>
+          Раздел добавлен в архитектуру заранее, чтобы сайт мог масштабироваться
+          как производственный и B2B-ресурс, а не только как продуктовый каталог.
+        </p>
+      </div>
+
+      <div class="cta-strip surface-card">
+        <p class="eyebrow">Следующий шаг</p>
+        <h2>Пока раздел пуст, дальше логично идти в продукцию, документы или B2B-контур</h2>
+        <div class="button-group">
+          <a class="button" href="/katalog/">Продукция</a>
+          <a class="button button--secondary" href="/partneram/">Для сетей</a>
+          <a class="button button--ghost" href="/dokumenty/">Документы</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

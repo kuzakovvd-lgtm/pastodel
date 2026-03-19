@@ -1,7 +1,7 @@
 ---
 import ProductCard from "../../components/ProductCard.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import { products, type Product } from "../../data/products";
+import { flavorLabels, products, type Product } from "../../data/products";
 import { brand } from "../../data/site";
 
 export function getStaticPaths() {
@@ -15,7 +15,50 @@ const { product } = Astro.props as { product: Product };
 
 const relatedProducts = products
   .filter((item) => item.slug !== product.slug)
+  .sort((a, b) => {
+    const aScore =
+      (a.line === product.line ? 2 : 0) +
+      a.flavorKeys.filter((key) => product.flavorKeys.includes(key)).length;
+    const bScore =
+      (b.line === product.line ? 2 : 0) +
+      b.flavorKeys.filter((key) => product.flavorKeys.includes(key)).length;
+
+    return bScore - aScore;
+  })
   .slice(0, 3);
+
+const consumptionNotes = [
+  {
+    title: "Вкус и сценарий",
+    text: product.subtitle,
+  },
+  {
+    title: "Роль в линейке",
+    text: product.summary,
+  },
+  {
+    title: "Формат",
+    text: `${product.weightLabel}, ${product.packageType.toLowerCase()} для быстрого приготовления дома.`,
+  },
+];
+
+const bridgeLinks = [
+  {
+    href: "/gde-kupit/",
+    title: "Где купить",
+    text: "Раздел помогает понять, в каких каналах искать продукт и куда идти дальше за покупкой.",
+  },
+  {
+    href: "/partneram/",
+    title: "Для сетей",
+    text: "Если SKU интересен для запуска, отдельный B2B-раздел продолжает сценарий для байера и партнера.",
+  },
+  {
+    href: "/dokumenty/",
+    title: "Документы",
+    text: "На сайте уже есть раздел материалов для первого B2B-диалога и запроса дополнительных документов.",
+  },
+];
 
 const productSchema = {
   "@context": "https://schema.org",
@@ -58,7 +101,7 @@ const productSchema = {
 ---
 
 <BaseLayout
-  title={`${product.title} — ${brand.name}`}
+  title={`${product.title} ${product.weightLabel} — ${brand.name}`}
   description={product.summary}
   canonical={`/katalog/${product.slug}/`}
   image={product.image}
@@ -69,7 +112,7 @@ const productSchema = {
     <div class="container">
       <ol class="breadcrumbs">
         <li><a href="/">Главная</a></li>
-        <li><a href="/katalog/">Каталог</a></li>
+        <li><a href="/katalog/">Продукция</a></li>
         <li>{product.title}</li>
       </ol>
 
@@ -87,11 +130,18 @@ const productSchema = {
           <p class="eyebrow">{product.lineLabel}</p>
           <h1>{product.title}</h1>
           <p class="lead">{product.subtitle}</p>
+          <p class="product-summary__text">{product.summary}</p>
           <p>{product.description}</p>
 
           <ul class="highlight-list" aria-label="Преимущества продукта">
             {product.highlights.map((item) => (
               <li>{item}</li>
+            ))}
+          </ul>
+
+          <ul class="tag-list" aria-label="Профиль вкуса">
+            {product.flavorKeys.map((key) => (
+              <li>{flavorLabels[key]}</li>
             ))}
           </ul>
 
@@ -109,14 +159,15 @@ const productSchema = {
               <strong>{product.packageType}</strong>
             </div>
             <div class="metric-card">
-              <span>Канал</span>
-              <strong>B2C и B2B</strong>
+              <span>Линейка</span>
+              <strong>{product.lineLabel}</strong>
             </div>
           </div>
 
           <div class="button-group">
             <a class="button" href="/gde-kupit/">Где купить</a>
-            <a class="button button--ghost" href="/partneram/">Стать партнером</a>
+            <a class="button button--secondary" href="/partneram/">Для сетей</a>
+            <a class="button button--ghost" href="/katalog/">Весь каталог</a>
           </div>
         </article>
       </div>
@@ -126,8 +177,33 @@ const productSchema = {
   <section class="section section--tight-top">
     <div class="container product-details-grid">
       <article class="product-detail-card">
-        <h2>Описание и состав</h2>
-        <p class="meta-kicker meta-kicker--spaced">{product.summary}</p>
+        <h2>Вкус и сценарий</h2>
+        <div class="detail-stack">
+          {consumptionNotes.map((item) => (
+            <div>
+              <p class="meta-kicker">{item.title}</p>
+              <p>{item.text}</p>
+            </div>
+          ))}
+        </div>
+      </article>
+
+      <article class="product-detail-card">
+        <h2>Ключевые параметры</h2>
+        <ul class="detail-list">
+          <li>{product.weightLabel} в упаковке</li>
+          <li>{product.packageType}</li>
+          <li>{product.lineLabel}</li>
+          <li>SKU: {product.sku}</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section class="section section--tight-top">
+    <div class="container product-details-grid">
+      <article class="product-detail-card">
+        <h2>Состав</h2>
         <ul class="detail-list">
           {product.ingredients.map((ingredient) => (
             <li>{ingredient}</li>
@@ -161,6 +237,9 @@ const productSchema = {
 
       <article class="product-detail-card">
         <h2>Способ приготовления</h2>
+        <p class="meta-kicker meta-kicker--spaced">
+          Подходит для сценария быстрого домашнего разогрева без сложной подготовки.
+        </p>
         <ul class="detail-list">
           {product.cooking.map((step) => (
             <li>{step}</li>
@@ -169,11 +248,18 @@ const productSchema = {
       </article>
 
       <article class="product-detail-card">
-        <h2>Условия хранения</h2>
+        <h2>Хранение и формат</h2>
+        <p class="meta-kicker meta-kicker--spaced">
+          В этом блоке собраны только те параметры, которые уже подтверждены в проекте.
+        </p>
         <ul class="detail-list">
           {product.storage.map((rule) => (
             <li>{rule}</li>
           ))}
+        </ul>
+        <ul class="detail-list detail-list--spaced">
+          <li>{product.packageType}</li>
+          <li>{product.weightLabel}</li>
         </ul>
       </article>
     </div>
@@ -181,16 +267,34 @@ const productSchema = {
 
   <section class="section">
     <div class="container">
+      <div class="cards-grid">
+        {bridgeLinks.map((item) => (
+          <article class="feature-card">
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+            <div class="button-group button-group--spaced">
+              <a class="button button--ghost" href={item.href}>Открыть раздел</a>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
       <div class="cta-strip surface-card">
-        <p class="eyebrow">Покупка и поставки</p>
-        <h2>Этот SKU можно включить в розничную матрицу, доставку или пилотный запуск</h2>
+        <p class="eyebrow">Покупка и запуск</p>
+        <h2>Этот SKU уже встроен в два маршрута: поиск продукта и B2B-диалог</h2>
         <p>
-          Для B2C-продаж продукт ведет на раздел «Где купить». Для B2B-запросов
-          доступен партнерский раздел с формой заявки и коммерческими вводными.
+          Для потребительского сценария ведем в «Где купить». Для байера или
+          партнера оставляем короткий мост в раздел «Для сетей» и материалы,
+          которые помогают начать обсуждение линейки.
         </p>
         <div class="button-group">
           <a class="button" href="/gde-kupit/">Где купить</a>
-          <a class="button button--secondary" href="/partneram/">Партнерский запрос</a>
+          <a class="button button--secondary" href="/partneram/">Для сетей</a>
+          <a class="button button--ghost" href="/dokumenty/">Документы</a>
         </div>
       </div>
     </div>
@@ -201,12 +305,24 @@ const productSchema = {
       <div class="section-heading">
         <p class="eyebrow">Еще в каталоге</p>
         <h2>Другие вкусы Pastodel</h2>
+        <p>
+          Если нужен другой вкусовой сценарий, сравните соседние SKU из той же
+          линейки или с близким профилем.
+        </p>
       </div>
 
       <div class="products-grid">
         {relatedProducts.map((item) => (
-          <ProductCard product={item} />
+          <ProductCard
+            product={item}
+            showHighlights={true}
+            primaryLabel="Открыть SKU"
+          />
         ))}
+      </div>
+
+      <div class="button-group button-group--spaced">
+        <a class="button button--ghost" href="/katalog/">Вернуться в каталог</a>
       </div>
     </div>
   </section>

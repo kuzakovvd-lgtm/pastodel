@@ -1,46 +1,155 @@
 ---
+import ProductCard from "../components/ProductCard.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import SectionHeading from "../components/SectionHeading.astro";
-import {
-  businessMetrics,
-  marketFacts,
-  networkBenefits,
-  partnerAdvantages,
-  partnerAssortment,
-  productionCapabilities,
-  retailProblems,
-} from "../data/site";
+import { products } from "../data/products";
+import { networkBenefits, partnerAssortment } from "../data/site";
+
+const buyerIntro = [
+  {
+    title: "Федеральные и региональные сети",
+    text: "Для категорий, где нужен понятный продукт с быстрым сценарием покупки и без сложной коммуникации на полке.",
+  },
+  {
+    title: "Дистрибьюторы и оптовые партнеры",
+    text: "Для каналов, где важны ясная продуктовая логика, аккуратный ассортимент и готовые материалы для первого обсуждения.",
+  },
+  {
+    title: "Пилотные запуски и тестовые вводы",
+    text: "Для сценариев, где запуск начинается с ограниченного набора SKU и последующей оценки спроса.",
+  },
+];
+
+const consumerFit = [
+  {
+    title: "Массовые вкусы без сложного выбора",
+    text: "Линейка строится вокруг узнаваемых рецептур, которые не требуют дополнительного объяснения покупателю.",
+  },
+  {
+    title: "Формат 400-500 г",
+    text: "Линейка строится вокруг понятного формата готового блюда для быстрого ужина: от сытной порции на одного до сценария на двоих.",
+  },
+  {
+    title: "Готовность за 7-10 минут",
+    text: "Сценарий приготовления совпадает с повседневным запросом на быстрый и предсказуемый результат.",
+  },
+];
+
+const networkFit = [
+  {
+    title: "Удобно считывается на полке",
+    text: "Ассортимент собран вокруг понятных вкусов и не требует сложной матрицы для первого запуска.",
+  },
+  {
+    title: "Подходит для тестового ввода",
+    text: "Разделение на линейки и вкусовые профили помогает собрать аккуратный пилот под формат конкретного канала.",
+  },
+  {
+    title: "Работает на массовый сценарий",
+    text: "Продукт ориентирован на регулярную покупку, а не на нишевый гастрономический спрос.",
+  },
+  {
+    title: "Поддерживается материалами",
+    text: "Сайт уже разведен по маршрутам: продукция, B2B-раздел, документы и контактный сценарий для старта переговоров.",
+  },
+];
+
+const packagingBenefits = [
+  {
+    title: "Формат линейки 400-500 г",
+    text: "Упаковочная логика линейки уже читается на сайте и в карточках SKU. Такой формат можно использовать как базовую опору в переговорах.",
+  },
+  {
+    title: "Пакет семейного формата",
+    text: "Карточки продуктов уже собраны в единой логике упаковки. Детальные физические параметры и паллетные данные на сайте пока не заявлены и должны добавляться отдельно.",
+  },
+  {
+    title: "Понятная роль в категории",
+    text: "Продукт подается как готовая замороженная паста для повседневного спроса, а не как разовая гастрономическая новинка.",
+  },
+];
+
+const marketingSupport = [
+  {
+    title: "Презентация для первого обсуждения",
+    text: "На странице уже встроен PDF-файл, который можно использовать как базовый материал для первичного диалога.",
+  },
+  {
+    title: "Карточки SKU и продуктовая структура",
+    text: "Каждый вкус имеет отдельную страницу, а раздел продукции уже работает как цифровой каталог для байера и партнера.",
+  },
+  {
+    title: "Контентный каркас под sell-in",
+    text: "При подтверждении фактов сайт можно быстро дополнить документами, страницей качества и новостями без пересборки архитектуры.",
+  },
+];
+
+const trustLinks = [
+  {
+    href: "/o-kompanii/",
+    title: "О компании",
+    text: "Корпоративный раздел подготовлен как контейнер для подтвержденной информации о компании и бренде.",
+  },
+  {
+    href: "/proizvodstvo-i-kachestvo/",
+    title: "Производство и качество",
+    text: "Раздел вынесен отдельно, чтобы не перегружать sell-in-страницу неподтвержденными деталями о производстве.",
+  },
+  {
+    href: "/dokumenty/",
+    title: "Документы",
+    text: "На сайте уже предусмотрен отдельный реестр под сертификаты, спецификации и коммерческие материалы.",
+  },
+];
+
+const featuredB2BProductSlugs = [
+  "alfredo-kuritsa",
+  "karbonara",
+  "vetchina-griby-slivochny-sous",
+  "pasta-frikadelki-tomatny-sous",
+];
+const featuredB2BProducts = featuredB2BProductSlugs
+  .map((slug) => products.find((product) => product.slug === slug))
+  .filter(Boolean);
 ---
 
 <BaseLayout
-  title="Партнерам Pastodel — линейка 400 г для федеральных сетей"
-  description="Pastodel для федеральных сетей и дистрибьюторов: рост категории, семейный формат 400 г, аргументы ввода и производственные масштабы."
+  title="Для сетей Pastodel — B2B-раздел для байеров и дистрибьюторов"
+  description="Pastodel для торговых сетей и дистрибьюторов: структура ассортимента, логика линейки, sell-in-аргументы и старт переговоров."
   canonical="/partneram/"
 >
   <section class="page-intro">
     <div class="container page-intro__inner">
-      <p class="eyebrow">Партнерам</p>
-      <h1>Pastodel для федеральных сетей, дистрибьюторов и пилотных запусков</h1>
+      <p class="eyebrow">Для сетей</p>
+      <h1>Pastodel для торговых сетей, дистрибьюторов и пилотных запусков</h1>
       <p>
-        Раздел обновлен по данным из презентации: теперь здесь отражены реальные
-        аргументы линейки 400 г, проблемы категории, решение для полки и
-        производственные масштабы.
+        Это основной B2B-раздел сайта. Здесь собрана короткая sell-in-логика:
+        что это за продукт, почему он понятен массовому покупателю, как устроен
+        ассортимент и с какого шага удобно начинать диалог.
       </p>
+      <div class="button-group">
+        <a class="button" href="/kontakty/">Обсудить запуск</a>
+        <a class="button button--secondary" href="/docs/pastodel-b2b-placeholder.pdf" download>
+          Запросить презентацию
+        </a>
+        <a class="button button--ghost" href="/kontakty/">
+          Запросить условия
+        </a>
+      </div>
     </div>
   </section>
 
   <section class="section section--tight-top">
     <div class="container">
       <SectionHeading
-        eyebrow="Рынок"
-        title="Категория замороженной готовой еды продолжает расти"
-        text="На этом строится основная логика ввода: покупатель уже привык к быстрым решениям, а заморозка дает сети более предсказуемую категорию."
+        eyebrow="Кому подходит"
+        title="С кем удобнее всего начинать обсуждение"
+        text="Этот блок отвечает на первый вопрос байера: для какого канала и формата партнерства подходит линейка."
       />
 
       <div class="cards-grid">
-        {marketFacts.map((item) => (
+        {buyerIntro.map((item) => (
           <article class="feature-card">
-            <p class="eyebrow">{item.value}</p>
             <h3>{item.title}</h3>
             <p>{item.text}</p>
           </article>
@@ -52,13 +161,13 @@ import {
   <section class="section">
     <div class="container">
       <SectionHeading
-        eyebrow="Проблема"
-        title="Почему категории не хватает именно такого формата"
-        text="В презентации хорошо показано рыночное окно: полка перегружена сложными SKU, а семейная заморозка 400-500 г развита слабо."
+        eyebrow="Покупательский сценарий"
+        title="Почему формат понятен массовому покупателю"
+        text="Блок нужен для sell-in-аргументации: байер должен быстро увидеть, что продукт опирается на узнаваемое потребительское поведение."
       />
 
       <div class="feature-grid">
-        {retailProblems.map((item) => (
+        {consumerFit.map((item) => (
           <article class="feature-card">
             <h3>{item.title}</h3>
             <p>{item.text}</p>
@@ -71,54 +180,28 @@ import {
   <section class="section">
     <div class="container">
       <SectionHeading
-        eyebrow="Преимущества"
-        title="Почему Pastodel удобно вводить в матрицу"
-        text="Ниже собраны ключевые аргументы из презентации, уже переложенные в формат сайта для переговоров с сетью."
+        eyebrow="Для сети"
+        title="Чем Pastodel удобен для ввода в матрицу"
+        text="Задача блока — показать аргументы для сети без перегруза цифрами и неподтвержденными обещаниями."
       />
 
       <div class="feature-grid">
-        {partnerAdvantages.map((item) => (
+        {networkFit.map((item) => (
           <article class="feature-card">
             <h3>{item.title}</h3>
             <p>{item.text}</p>
           </article>
         ))}
       </div>
-    </div>
-  </section>
 
-  <section class="section">
-    <div class="container">
-      <SectionHeading
-        eyebrow="Решение"
-        title="Что получает сеть при вводе линейки"
-        text="Продукт подается не как отдельная красивая новинка, а как прагматичное решение под быстрые семейные ужины и регулярную покупку."
-      />
-
-      <div class="split-grid">
-        <article class="partner-card">
-          <h2>Преимущества для матрицы</h2>
-          <ul class="detail-list detail-list--spaced">
-            {networkBenefits.map((item) => (
-              <li>{item}</li>
-            ))}
-          </ul>
-        </article>
-
-        <article class="partner-card">
-          <p class="eyebrow">Потребительский сценарий</p>
-          <h2>Быстрый ужин остается одним из главных триггеров покупки</h2>
-          <p>
-            Формат 400 г дает понятную экономику потребления: одна упаковка
-            работает как плотный ужин для одного или как порция на двоих.
-            В презентации это подкрепляется идеей «купить быстро и часто».
-          </p>
-          <p>
-            Дополнительный аргумент для сети: паста входит в топ-5 домашних
-            ужинов, а значит, вкус и сценарий покупки уже знакомы широкой
-            аудитории.
-          </p>
-        </article>
+      <div class="partner-card partner-card--spaced">
+        <p class="eyebrow">Короткий sell-in list</p>
+        <h2>Основные аргументы для первого разговора</h2>
+        <ul class="detail-list detail-list--spaced">
+          {networkBenefits.map((item) => (
+            <li>{item}</li>
+          ))}
+        </ul>
       </div>
     </div>
   </section>
@@ -127,13 +210,42 @@ import {
     <div class="container">
       <SectionHeading
         eyebrow="Ассортимент"
-        title="Стартовая концепция, которую можно адаптировать под стандарты конкретной сети"
-        text="Сайт по-прежнему показывает 6 SKU, но теперь они собраны как семейная линейка с массовыми вкусами и без лишней гастрономической сложности."
+        title="Какие SKU уже собраны в линейке"
+        text="Страница не заменяет раздел продукции, но показывает структуру ассортимента и помогает быстро перейти в отдельные карточки."
       />
 
       <div class="partner-grid">
         {partnerAssortment.map((item) => (
           <article class="assortment-card">
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+          </article>
+        ))}
+      </div>
+
+      <div class="products-grid products-grid--spaced">
+        {featuredB2BProducts.map((product) => (
+          <ProductCard product={product} />
+        ))}
+      </div>
+
+      <div class="button-group button-group--spaced">
+        <a class="button" href="/katalog/">Смотреть весь ассортимент</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <SectionHeading
+        eyebrow="Формат и категория"
+        title="Что важно знать про упаковку и роль продукта"
+        text="Здесь оставлены только подтвержденные и нейтральные формулировки. Детальные параметры можно добавить позже, когда они будут согласованы."
+      />
+
+      <div class="cards-grid">
+        {packagingBenefits.map((item) => (
+          <article class="feature-card">
             <h3>{item.title}</h3>
             <p>{item.text}</p>
           </article>
@@ -145,62 +257,48 @@ import {
   <section class="section">
     <div class="container split-grid">
       <article class="partner-card">
-        <p class="eyebrow">Производственные возможности</p>
-        <h2>Готовность к пилотам и расширению ассортимента</h2>
-        <ul class="detail-list detail-list--spaced">
-          {productionCapabilities.map((item) => (
-            <li>{item}</li>
+        <p class="eyebrow">Маркетинговая поддержка</p>
+        <h2>Что уже готово для первого контакта</h2>
+        <div class="detail-stack">
+          {marketingSupport.map((item) => (
+            <div>
+              <h3>{item.title}</h3>
+              <p>{item.text}</p>
+            </div>
           ))}
-        </ul>
+        </div>
+        <div class="button-group button-group--spaced">
+          <a class="button" href="/docs/pastodel-b2b-placeholder.pdf" download>
+            Скачать презентацию
+          </a>
+          <a class="button button--ghost" href="/dokumenty/">Запросить документы</a>
+        </div>
       </article>
 
       <article class="partner-card">
-        <p class="eyebrow">Материалы</p>
-        <h2>Базовый пакет для первичного обсуждения</h2>
-        <p>
-          Ниже размещена демонстрационная кнопка скачивания PDF. Ее можно
-          заменить на финальную коммерческую презентацию или одностраничный
-          материал после
-          согласования контента.
-        </p>
-        <div class="button-group button-group--spaced">
-          <a class="button" href="/docs/pastodel-b2b-placeholder.pdf" download>
-            Скачать PDF
-          </a>
-          <a class="button button--ghost" href="/kontakty/">Обсудить запуск</a>
+        <p class="eyebrow">Блок доверия</p>
+        <h2>Где на сайте искать подтверждающие разделы</h2>
+        <div class="detail-stack">
+          {trustLinks.map((item) => (
+            <div>
+              <h3><a href={item.href}>{item.title}</a></h3>
+              <p>{item.text}</p>
+            </div>
+          ))}
         </div>
       </article>
     </div>
   </section>
 
   <section class="section">
-    <div class="container">
-      <SectionHeading
-        eyebrow="Масштаб"
-        title="Портфель и дистрибуция поддерживают запуск новой линейки"
-        text="Эти цифры взяты из презентации и усиливают B2B-часть сайта конкретикой, а не общими обещаниями."
-      />
-
-      <div class="cards-grid">
-        {businessMetrics.map((item) => (
-          <article class="feature-card">
-            <p class="eyebrow">{item.value}</p>
-            <h3>{item.label}</h3>
-          </article>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="container">
-      <SectionHeading
-        eyebrow="Заявка"
-        title="Форма для коммерческого запроса"
-        text="Форма собрана в статическом виде и готова к подключению через CRM, почтовый шлюз или серверный обработчик."
-      />
-
+    <div class="container split-grid">
       <form class="form-card" action="#" method="post">
+        <SectionHeading
+          eyebrow="Старт диалога"
+          title="Как начать работу"
+          text="Форма собрана как статическая заготовка для коммерческого запроса. Ее можно подключить к CRM или почтовому обработчику без изменения структуры страницы."
+        />
+
         <div class="form-grid">
           <div class="field">
             <label for="company">Компания</label>
@@ -208,12 +306,12 @@ import {
           </div>
 
           <div class="field">
-            <label for="channel">Канал продаж</label>
+            <label for="channel">Формат сотрудничества</label>
             <select id="channel" name="channel">
               <option>Федеральная сеть</option>
+              <option>Региональная сеть</option>
               <option>Дистрибьютор</option>
-              <option>Сервис быстрой доставки</option>
-              <option>Ресторанный канал</option>
+              <option>Пилотный запуск</option>
             </select>
           </div>
 
@@ -233,8 +331,13 @@ import {
           </div>
 
           <div class="field">
-            <label for="volume">Планируемый объем</label>
-            <input id="volume" name="volume" type="text" placeholder="Например: пилот 3 SKU в 20 точках" />
+            <label for="request-type">Что нужно</label>
+            <select id="request-type" name="requestType">
+              <option>Обсудить запуск</option>
+              <option>Запросить презентацию</option>
+              <option>Запросить условия</option>
+              <option>Связаться с отделом продаж</option>
+            </select>
           </div>
 
           <div class="field field--full">
@@ -242,21 +345,47 @@ import {
             <textarea
               id="message"
               name="message"
-              placeholder="Опишите формат сотрудничества, целевой регион, интересующие линейки и сроки запуска."
+              placeholder="Опишите формат канала, интересующие SKU, ожидаемый сценарий запуска или состав материалов, которые нужны для первого обсуждения."
             ></textarea>
           </div>
         </div>
 
         <p class="form-note">
-          Демо-версия: отправка формы не подключена. Для рабочей версии
-          достаточно привязать `action` к CRM, API-обработчику или внешнему
-          сервису форм.
+          Демо-версия: форма не отправляет данные без подключения обработчика.
+          Отправляя запрос после подключения формы, пользователь должен быть
+          ознакомлен с <a href="/politika-konfidentsialnosti/">политикой конфиденциальности</a> и
+          <a href="/soglasie-na-obrabotku-dannyh/"> согласием на обработку данных</a>.
         </p>
 
         <div class="button-group">
-          <button class="button" type="submit">Отправить заявку</button>
+          <button class="button" type="submit">Отправить запрос</button>
         </div>
       </form>
+
+      <div class="partner-card">
+        <p class="eyebrow">Прямые действия</p>
+        <h2>Если удобнее начать без формы</h2>
+        <div class="detail-stack">
+          <div>
+            <h3>Связаться с отделом продаж</h3>
+            <p><a href="/kontakty/">Перейти в контакты</a></p>
+          </div>
+          <div>
+            <h3>Обсудить запуск</h3>
+            <p><a href="/kontakty/">Перейти в контакты</a></p>
+          </div>
+          <div>
+            <h3>Запросить презентацию</h3>
+            <p><a href="/docs/pastodel-b2b-placeholder.pdf" download>Скачать PDF</a></p>
+          </div>
+          <div>
+            <h3>Запросить условия</h3>
+            <p>
+              <a href="/kontakty/">Открыть форму запроса</a>
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 </BaseLayout>

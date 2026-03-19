@@ -3,32 +3,98 @@ import ProductCard from "../../components/ProductCard.astro";
 import SectionHeading from "../../components/SectionHeading.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { flavorFilters, lineFilters, products } from "../../data/products";
+
+const catalogOrder = [
+  "alfredo-kuritsa",
+  "karbonara",
+  "mak-end-chiz",
+  "vetchina-griby-slivochny-sous",
+  "pasta-frikadelki-tomatny-sous",
+  "chetyre-syra",
+  "kuritsa-pesto-vyalenye-tomaty",
+  "primavera",
+  "rizotto-rizi-bizi-pesto-zeleny-goroshek",
+  "rizotto-griby-slivochny-sous",
+  "paelya-kuritsa-ovoshchi",
+];
+
+const orderedProducts = catalogOrder
+  .map((slug) => products.find((product) => product.slug === slug))
+  .filter(Boolean);
+
+const lineGuide = [
+  {
+    key: "casa",
+    title: "Ежедневная классика",
+    text: "Максимально понятные вкусы для повседневного выбора: сливочные и домашние сочетания, с которых удобно начинать знакомство с линейкой.",
+  },
+  {
+    key: "chef",
+    title: "Сытные блюда",
+    text: "Более насыщенные позиции для расширения полки: выразительные вкусы, мясные акценты и блюда, которые считываются как полноценный ужин.",
+  },
+  {
+    key: "verde",
+    title: "Овощные и легкие вкусы",
+    text: "Позиции для более легкого сценария выбора. Эти SKU помогают показать широту линейки без ухода в нишевую гастрономию.",
+  },
+].map((item) => ({
+  ...item,
+  count: products.filter((product) => product.line === item.key).length,
+}));
 ---
 
 <BaseLayout
-  title="Каталог Pastodel — линейка замороженной пасты 400 г"
-  description="Каталог Pastodel: 6 SKU замороженной пасты 400 г с фильтром по линейкам и вкусовым профилям."
+  title="Продукция Pastodel — ассортимент готовых замороженных блюд"
+  description="Ассортимент Pastodel: SKU готовых замороженных блюд с понятной структурой линейки, переходами в карточки товаров и отдельным маршрутом для торговых сетей."
   canonical="/katalog/"
 >
   <section class="page-intro">
     <div class="container page-intro__inner">
-      <p class="eyebrow">Каталог</p>
-      <h1>Ассортимент Pastodel</h1>
+      <p class="eyebrow">Продукция</p>
+      <h1>Продукция Pastodel</h1>
       <p>
-        В каталоге собраны массовые вкусы семейного формата 400 г: позиции для
-        быстрого ужина, понятной полки и первого запуска в сети. Фильтр работает
-        без тяжелого клиентского слоя: если JavaScript отключен, весь ассортимент
-        остается доступен целиком.
+        Раздел собран как витрина ассортимента производителя: здесь можно быстро
+        понять, какие SKU есть в линейке, чем отличаются вкусы и куда перейти
+        за деталями по каждому продукту. Каталог помогает и обычному посетителю,
+        и байеру, который оценивает структуру линейки для запуска.
       </p>
+      <div class="button-group">
+        <a class="button" href="/partneram/">Посмотреть линейку для сетей</a>
+        <a class="button button--secondary" href="/gde-kupit/">Где купить</a>
+      </div>
     </div>
   </section>
 
   <section class="section section--tight-top">
     <div class="container">
       <SectionHeading
-        eyebrow="Линейки и вкусы"
-        title="Подберите SKU под полку, промонабор или домашний сценарий"
-        text="Можно отбирать продукты по логике ассортимента и по вкусовому профилю. Все карточки ведут на отдельные страницы продуктов."
+        eyebrow="Логика линейки"
+        title="Как устроен ассортимент Pastodel"
+        text="Вместо длинного списка без структуры каталог сначала показывает, как читать линейку: с чего начать, где искать более сытные позиции и какие SKU расширяют выбор."
+      />
+
+      <div class="cards-grid">
+        {lineGuide.map((item) => (
+          <article class="feature-card catalog-guide-card">
+            <div class="product-card__meta">
+              <span class="pill">{item.title}</span>
+              <span class="product-card__weight">{item.count} SKU</span>
+            </div>
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tight-top">
+    <div class="container">
+      <SectionHeading
+        eyebrow="Фильтры и выбор"
+        title="Соберите витрину по логике линейки и вкусовому профилю"
+        text="Фильтр помогает быстрее увидеть структуру ассортимента. Если JavaScript отключен, каталог все равно остается понятным и показывает весь набор SKU целиком."
       />
 
       <div class="catalog-toolbar">
@@ -71,14 +137,20 @@ import { flavorFilters, lineFilters, products } from "../../data/products";
         </div>
 
         <p class="form-note">
-          Витрина уже готова к статическому деплою. Если фильтр не активен,
-          просто просматривайте весь каталог целиком.
+          В каталоге {orderedProducts.length} SKU. Открывайте карточки товаров,
+          если нужно посмотреть вкус, состав, приготовление и упаковочный формат
+          конкретной позиции.
         </p>
       </div>
 
       <div class="products-grid" id="catalog-grid">
-        {products.map((product) => (
-          <ProductCard product={product} />
+        {orderedProducts.map((product) => (
+          <ProductCard
+            product={product}
+            showHighlights={true}
+            showNetworkCta={true}
+            primaryLabel="Открыть карточку товара"
+          />
         ))}
       </div>
 
@@ -86,6 +158,45 @@ import { flavorFilters, lineFilters, products } from "../../data/products";
         По выбранным параметрам ничего не найдено. Сбросьте фильтры и
         посмотрите все вкусы.
       </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="partner-band surface-card">
+        <p class="eyebrow">Для сетей</p>
+        <h2>Если ассортимент интересен для запуска, переходите в отдельный B2B-раздел</h2>
+        <p>
+          Каталог показывает линейку и помогает сравнить SKU, а раздел «Для
+          сетей» продолжает сценарий для байера: объясняет sell-in-логику,
+          формат запуска и доступные материалы для первого обсуждения.
+        </p>
+        <div class="button-group">
+          <a class="button" href="/partneram/">Перейти в раздел для сетей</a>
+          <a class="button button--ghost" href="/docs/pastodel-b2b-placeholder.pdf" download>
+            Скачать PDF
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="cta-strip surface-card">
+        <p class="eyebrow">Следующий шаг</p>
+        <h2>Каталог ведет в два маршрута: детальный просмотр SKU и диалог с производителем</h2>
+        <p>
+          Если вы выбираете вкус и формат для себя, переходите в карточки
+          продуктов и раздел «Где купить». Если вы оцениваете линейку для сети,
+          используйте раздел «Для сетей» и контакты.
+        </p>
+        <div class="button-group">
+          <a class="button" href="/gde-kupit/">Где купить</a>
+          <a class="button button--secondary" href="/partneram/">Для сетей</a>
+          <a class="button button--ghost" href="/kontakty/">Связаться</a>
+        </div>
+      </div>
     </div>
   </section>
 

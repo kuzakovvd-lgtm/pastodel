@@ -5,6 +5,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 <BaseLayout
   title="Страница не найдена — Pastodel"
   description="Запрошенная страница Pastodel не найдена."
+  noindex={true}
 >
   <section class="section">
     <div class="container">
@@ -12,12 +13,12 @@ import BaseLayout from "../layouts/BaseLayout.astro";
         <p class="eyebrow">404</p>
         <h1>Страница не найдена</h1>
         <p>
-          Проверьте адрес страницы или вернитесь в каталог Pastodel, чтобы
-          продолжить просмотр ассортимента.
+          Проверьте адрес страницы или вернитесь в раздел продукции Pastodel,
+          чтобы продолжить просмотр ассортимента.
         </p>
         <div class="button-group">
           <a class="button" href="/">На главную</a>
-          <a class="button button--ghost" href="/katalog/">Перейти в каталог</a>
+          <a class="button button--ghost" href="/katalog/">Перейти к продукции</a>
         </div>
       </div>
     </div>

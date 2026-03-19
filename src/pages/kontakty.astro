@@ -1,12 +1,47 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import SectionHeading from "../components/SectionHeading.astro";
-import { brand } from "../data/site";
+
+const requestRoutes = [
+  {
+    title: "Торговые сети и дистрибьюторы",
+    text: "Для запуска линейки, запроса условий, материалов и обсуждения ассортимента используйте раздел «Для сетей» и форму на этой странице.",
+    href: "/partneram/",
+    cta: "Для сетей",
+  },
+  {
+    title: "Покупатели",
+    text: "Если вы ищете конкретный вкус или хотите уточнить сценарий покупки, начните с каталога и раздела «Где купить», а затем отправьте запрос.",
+    href: "/gde-kupit/",
+    cta: "Где купить",
+  },
+  {
+    title: "Общие и корпоративные запросы",
+    text: "Если вопрос не относится напрямую к покупке или запуску, используйте общую форму. Так страница остается честной даже без публикации прямых контактных данных.",
+    href: "/dokumenty/",
+    cta: "Документы",
+  },
+];
+
+const contactScenarios = [
+  {
+    title: "Для запуска линейки",
+    text: "Если вы представляете сеть, дистрибьютора или закупочную команду, используйте B2B-маршрут и укажите, какие SKU интересны для первого обсуждения.",
+  },
+  {
+    title: "Для вопроса по продукту",
+    text: "Если вас интересует конкретный вкус, состав или сценарий приготовления, сначала откройте карточку SKU, а затем отправьте запрос через форму.",
+  },
+  {
+    title: "Для общего обращения",
+    text: "Если вопрос не связан с конкретным SKU, используйте форму как единую точку входа. После подключения рабочих каналов страница может быть дополнена прямыми контактами.",
+  },
+];
 ---
 
 <BaseLayout
   title="Контакты Pastodel"
-  description="Контакты Pastodel: форма обратной связи, телефон, email и юридическая информация в формате заглушки."
+  description="Контакты Pastodel: единая точка входа для покупателей, торговых сетей и общих запросов без фейковых контактных данных."
   canonical="/kontakty/"
 >
   <section class="page-intro">
@@ -14,45 +49,56 @@ import { brand } from "../data/site";
       <p class="eyebrow">Контакты</p>
       <h1>Связаться с Pastodel</h1>
       <p>
-        Раздел собран как универсальная контактная точка для покупателей,
-        партнеров, прессы и коммерческих запросов. Форму можно подключить к
-        CRM-системе или почтовому обработчику без изменения структуры страницы.
+        Эта страница собрана как единая точка входа для разных сценариев:
+        покупка продукта, B2B-обращение, корпоративный или общий запрос. Пока
+        прямые рабочие контакты не опубликованы, сайт использует честную
+        маршрутизацию через разделы и форму запроса.
       </p>
+      <div class="button-group">
+        <a class="button" href="/partneram/">Для сетей</a>
+        <a class="button button--secondary" href="/katalog/">Каталог</a>
+        <a class="button button--ghost" href="/gde-kupit/">Где купить</a>
+      </div>
     </div>
   </section>
 
   <section class="section section--tight-top">
     <div class="container">
       <SectionHeading
-        eyebrow="Контактные каналы"
-        title="Телефон, email и операционный адрес"
-        text="Пока используются реалистичные заглушки, но блок уже готов к замене на реальные данные без изменения верстки."
+        eyebrow="Сценарии обращения"
+        title="Какой маршрут подходит именно вам"
+        text="Вместо списка неподтвержденных телефонов и адресов страница сначала помогает выбрать правильный путь обращения."
       />
 
       <div class="contacts-grid">
-        <article class="contact-card">
-          <h3>Телефон</h3>
-          <p><a href={`tel:${brand.phone.replace(/[^\d+]/g, "")}`}>{brand.phone}</a></p>
-          <p>Пн-Пт, 10:00-18:00 по Москве.</p>
-        </article>
+        {requestRoutes.map((item) => (
+          <article class="contact-card">
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+            <div class="button-group button-group--spaced">
+              <a class="button button--ghost" href={item.href}>{item.cta}</a>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
 
-        <article class="contact-card">
-          <h3>Email</h3>
-          <p><a href={`mailto:${brand.email}`}>{brand.email}</a></p>
-          <p>Общие вопросы, запросы по продукту и медиа.</p>
-        </article>
+  <section class="section">
+    <div class="container">
+      <SectionHeading
+        eyebrow="Что указать в запросе"
+        title="Какие обращения страница поддерживает уже сейчас"
+        text="Блок помогает сделать форму полезной даже без подключения CRM, карты или опубликованных рабочих контактов."
+      />
 
-        <article class="contact-card">
-          <h3>B2B</h3>
-          <p><a href={`mailto:${brand.partnersEmail}`}>{brand.partnersEmail}</a></p>
-          <p>Для сетей, дистрибьюторов, доставки и ресторанного канала.</p>
-        </article>
-
-        <article class="contact-card">
-          <h3>Адрес</h3>
-          <p>{brand.address}</p>
-          <p>Демо-блок для юридического и операционного адреса.</p>
-        </article>
+      <div class="cards-grid">
+        {contactScenarios.map((item) => (
+          <article class="feature-card">
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+          </article>
+        ))}
       </div>
     </div>
   </section>
@@ -61,9 +107,9 @@ import { brand } from "../data/site";
     <div class="container split-grid">
       <form class="form-card" action="#" method="post">
         <SectionHeading
-          eyebrow="Форма"
-          title="Напишите нам"
-          text="Статическая форма для дальнейшего подключения к нужному обработчику."
+          eyebrow="Форма запроса"
+          title="Отправьте обращение по нужному сценарию"
+          text="Форма пока работает как статический интерфейс и не отправляет данные без подключения обработчика. Но структура уже готова для последующей интеграции."
         />
 
         <div class="form-grid">
@@ -73,23 +119,23 @@ import { brand } from "../data/site";
           </div>
 
           <div class="field">
-            <label for="contact-email">Email</label>
-            <input id="contact-email" name="email" type="email" placeholder="name@example.ru" />
+            <label for="contact-company">Компания или канал</label>
+            <input id="contact-company" name="company" type="text" placeholder="Сеть, дистрибьютор, покупатель, медиа" />
           </div>
 
           <div class="field">
-            <label for="contact-phone">Телефон</label>
-            <input id="contact-phone" name="phone" type="tel" placeholder="+7 (___) ___-__-__" />
-          </div>
-
-          <div class="field">
-            <label for="contact-topic">Тема</label>
+            <label for="contact-topic">Сценарий</label>
             <select id="contact-topic" name="topic">
-              <option>Покупка</option>
-              <option>Партнерство</option>
-              <option>Пресса и медиа</option>
-              <option>Другое</option>
+              <option>Запуск в сети / B2B</option>
+              <option>Вопрос по конкретному SKU</option>
+              <option>Уточнение наличия</option>
+              <option>Общий запрос</option>
             </select>
+          </div>
+
+          <div class="field">
+            <label for="contact-reply">Как с вами связаться</label>
+            <input id="contact-reply" name="reply" type="text" placeholder="Email, телефон или удобный способ ответа" />
           </div>
 
           <div class="field field--full">
@@ -97,47 +143,71 @@ import { brand } from "../data/site";
             <textarea
               id="contact-message"
               name="message"
-              placeholder="Опишите вопрос или формат сотрудничества."
+              placeholder="Опишите, какой продукт, канал или тип сотрудничества вас интересует."
             ></textarea>
           </div>
         </div>
 
         <p class="form-note">
-          Демо-режим: кнопка не отправляет данные без подключения обработчика.
+          Статический режим: форма не отправляет данные без подключения обработчика. Сейчас она работает как честный интерфейс запроса и каркас для дальнейшей интеграции.
+        </p>
+        <p class="form-note">
+          После подключения обработчика рядом с формой должны использоваться
+          <a href="/politika-konfidentsialnosti/"> политика конфиденциальности</a> и
+          <a href="/soglasie-na-obrabotku-dannyh/"> согласие на обработку данных</a>.
         </p>
 
         <div class="button-group">
-          <button class="button" type="submit">Отправить сообщение</button>
+          <button class="button" type="submit">Подготовить запрос</button>
         </div>
       </form>
 
       <div class="legal-grid">
         <article class="legal-card">
-          <h3>Юридический блок</h3>
+          <h3>Для сетей</h3>
           <ul>
-            <li>{brand.legalName}</li>
-            <li>ИНН {brand.inn}</li>
-            <li>ОГРН {brand.ogrn}</li>
+            <li>Раздел «Для сетей» уже собран как основной B2B-маршрут.</li>
+            <li>Каталог и карточки SKU можно использовать как основу для обсуждения ассортимента.</li>
+            <li>Материалы и документы вынесены в отдельный раздел.</li>
           </ul>
         </article>
 
         <article class="legal-card">
-          <h3>Документы</h3>
+          <h3>Для покупателей</h3>
           <ul>
-            <li>Карточка компании — заглушка</li>
-            <li>Декларации и спецификации — заглушка</li>
-            <li>Материалы для партнеров — по запросу</li>
+            <li>Сначала откройте каталог и карточку нужного SKU.</li>
+            <li>Затем используйте страницу «Где купить» как честный маршрут уточнения.</li>
+            <li>Если вопрос остается, отправьте запрос через форму.</li>
           </ul>
         </article>
 
         <article class="legal-card">
-          <h3>Дополнительно</h3>
+          <h3>О публикации контактов</h3>
           <ul>
-            <li>Контакт для закупок: {brand.partnersEmail}</li>
-            <li>Контакт для общих вопросов: {brand.email}</li>
-            <li>Сайт готов к статическому размещению на Nginx</li>
+            <li>Прямые рабочие контакты на сайте пока не опубликованы.</li>
+            <li>Страница не показывает неподтвержденные телефон, email, адрес или карту.</li>
+            <li>После согласования каналов эту секцию можно дополнить без изменения структуры.</li>
           </ul>
         </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="cta-strip surface-card">
+        <p class="eyebrow">Следующий шаг</p>
+        <h2>Для сети, покупателя и общего запроса на сайте уже есть отдельные маршруты</h2>
+        <p>
+          Если вопрос относится к запуску линейки, переходите в «Для сетей». Если
+          вы ищете конкретный вкус, используйте каталог и страницу «Где купить».
+          Если нужен общий запрос, используйте форму на этой странице.
+        </p>
+        <div class="button-group">
+          <a class="button" href="/partneram/">Для сетей</a>
+          <a class="button button--secondary" href="/dokumenty/">Документы</a>
+          <a class="button button--ghost" href="/gde-kupit/">Где купить</a>
+        </div>
       </div>
     </div>
   </section>

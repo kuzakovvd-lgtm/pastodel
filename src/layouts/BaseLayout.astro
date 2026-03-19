@@ -10,6 +10,7 @@ interface Props {
   image?: string;
   canonical?: string;
   ogType?: "website" | "article";
+  noindex?: boolean;
   schema?: Record<string, unknown>;
 }
 
@@ -19,6 +20,7 @@ const {
   image = "/images/og-card.svg",
   canonical = Astro.url.pathname,
   ogType = "website",
+  noindex = false,
   schema,
 } = Astro.props;
 
@@ -36,6 +38,7 @@ const schemaMarkup = schema ? JSON.stringify(schema, null, 2) : null;
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalUrl} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
     <meta name="theme-color" content="#f7f0e7" />
     <meta property="og:locale" content="ru_RU" />
     <meta property="og:type" content={ogType} />

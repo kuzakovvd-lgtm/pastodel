@@ -1,0 +1,251 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SectionHeading from "../components/SectionHeading.astro";
+
+const availableMaterials = [
+  {
+    title: "Базовая B2B-презентация",
+    text: "Единственный файл, который уже реально подключен в проекте. Его можно использовать как стартовый материал для первого обсуждения.",
+    href: "/docs/pastodel-b2b-placeholder.pdf",
+    cta: "Скачать PDF",
+  },
+];
+
+const assortmentDocs = [
+  {
+    title: "Карточки SKU на сайте",
+    text: "По каждому товару уже существуют отдельные страницы с базовой продуктовой информацией, составом, хранением и приготовлением.",
+    href: "/katalog/",
+    cta: "Открыть продукцию",
+  },
+  {
+    title: "Спецификации по ассортименту",
+    text: "Раздел подготовлен как placeholder: детальные product sheets и матричные материалы пока не опубликованы и должны предоставляться по запросу.",
+  },
+];
+
+const qualityDocs = [
+  {
+    title: "Документы по качеству и спецификациям",
+    text: "Подтверждающие материалы по качеству, сертификатам и декларациям на сайте пока не опубликованы отдельными файлами. Их корректно запрашивать через B2B-контур или контакты.",
+  },
+  {
+    title: "Страница о производственном и качественном подходе",
+    text: "Отдельный раздел уже объясняет подход к качеству продукта, замороженному формату, упаковке и пользовательскому сценарию без ложной технической конкретики.",
+    href: "/proizvodstvo-i-kachestvo/",
+    cta: "Открыть раздел",
+  },
+];
+
+const dialogMaterials = [
+  {
+    title: "Материалы для первого разговора",
+    text: "Для старта диалога уже доступны B2B-раздел сайта, базовая PDF-презентация и продуктовые карточки в каталоге.",
+  },
+  {
+    title: "Материалы по запросу",
+    text: "Если нужен конкретный пакет для сети или дистрибьютора, правильный следующий шаг — запросить его через раздел «Для сетей» или напрямую у отдела продаж.",
+  },
+];
+
+const nextLinks = [
+  {
+    title: "Для сетей",
+    text: "Основной sell-in-раздел для байера, дистрибьютора и пилотного запуска.",
+    href: "/partneram/",
+    cta: "Перейти в раздел",
+  },
+  {
+    title: "Производство и качество",
+    text: "Страница, которая помогает понять качественный и продуктовый подход без выдуманных технических фактов.",
+    href: "/proizvodstvo-i-kachestvo/",
+    cta: "Открыть страницу",
+  },
+  {
+    title: "Контакты",
+    text: "Если нужен пакет материалов, который пока не опубликован на сайте, его лучше запросить напрямую.",
+    href: "/kontakty/",
+    cta: "Связаться",
+  },
+];
+---
+
+<BaseLayout
+  title="Документы Pastodel"
+  description="Документы и материалы Pastodel: доступные файлы, материалы по ассортименту и то, что можно запросить для старта B2B-диалога."
+  canonical="/dokumenty/"
+>
+  <section class="page-intro">
+    <div class="container page-intro__inner">
+      <p class="eyebrow">Документы</p>
+      <h1>Документы и материалы для первого делового диалога</h1>
+      <p>
+        Эта страница показывает, какие материалы уже доступны на сайте, а какие
+        пока лучше запрашивать напрямую. Здесь нет выдуманных документов,
+        несуществующих сертификатов или пустых ссылок.
+      </p>
+      <div class="button-group">
+        <a class="button" href="/partneram/">Для сетей</a>
+        <a class="button button--secondary" href="/kontakty/">Запросить материалы</a>
+        <a class="button button--ghost" href="/proizvodstvo-i-kachestvo/">
+          Производство и качество
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tight-top">
+    <div class="container">
+      <SectionHeading
+        eyebrow="Доступно сейчас"
+        title="Материалы, которые можно открыть или скачать сразу"
+        text="Этот блок показывает только реально существующие файлы и разделы проекта."
+      />
+
+      <div class="cards-grid">
+        {availableMaterials.map((item) => (
+          <article class="feature-card">
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+            <div class="button-group button-group--spaced">
+              <a class="button" href={item.href} download>{item.cta}</a>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <SectionHeading
+        eyebrow="По ассортименту"
+        title="Что уже есть по продуктам и что пока запрашивается отдельно"
+        text="Раздел помогает понять, какие product-материалы доступны на сайте уже сейчас, а какие требуют отдельного запроса."
+      />
+
+      <div class="cards-grid">
+        {assortmentDocs.map((item) => (
+          <article class="feature-card">
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+            {item.href && item.cta && (
+              <div class="button-group button-group--spaced">
+                <a class="button button--ghost" href={item.href}>{item.cta}</a>
+              </div>
+            )}
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container split-grid">
+      <article class="partner-card">
+        <p class="eyebrow">Качество и спецификации</p>
+        <h2>Что можно подтвердить сейчас, а что запрашивается отдельно</h2>
+        <div class="detail-stack">
+          {qualityDocs.map((item) => (
+            <div>
+              <h3>{item.title}</h3>
+              <p>{item.text}</p>
+              {item.href && item.cta && (
+                <div class="button-group button-group--spaced">
+                  <a class="button button--ghost" href={item.href}>{item.cta}</a>
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      </article>
+
+      <article class="partner-card">
+        <p class="eyebrow">Материалы для старта диалога</p>
+        <h2>Как использовать эту страницу в B2B-сценарии</h2>
+        <div class="detail-stack">
+          {dialogMaterials.map((item) => (
+            <div>
+              <h3>{item.title}</h3>
+              <p>{item.text}</p>
+            </div>
+          ))}
+        </div>
+        <div class="button-group button-group--spaced">
+          <a class="button" href="/partneram/">Перейти в раздел для сетей</a>
+          <a class="button button--ghost" href="/kontakty/">
+            Запросить материалы
+          </a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <SectionHeading
+        eyebrow="По запросу"
+        title="Какие материалы логично получать напрямую"
+        text="Если конкретных файлов нет в открытом доступе на сайте, это отмечено честно: такие материалы лучше предоставлять адресно под формат сети, канала или обсуждаемого ассортимента."
+      />
+
+      <div class="cards-grid">
+        <article class="feature-card">
+          <h3>Спецификации и product sheets</h3>
+          <p>Предоставляются по запросу, когда согласован нужный набор SKU и формат обсуждения.</p>
+        </article>
+        <article class="feature-card">
+          <h3>Документы по качеству</h3>
+          <p>Предоставляются по запросу, если они нужны для следующего шага в переговорах или для внутренней проверки партнера.</p>
+        </article>
+        <article class="feature-card">
+          <h3>Коммерческие материалы под конкретный сценарий</h3>
+          <p>Запрашиваются отдельно, если нужен пакет под встречу с сетью, пилотный запуск или конкретный набор SKU.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <SectionHeading
+        eyebrow="Следующие разделы"
+        title="Куда идти дальше после страницы документов"
+        text="У каждого следующего раздела здесь одна функция: либо продолжить B2B-диалог, либо усилить доверие к продукту, либо открыть прямой контакт."
+      />
+
+      <div class="cards-grid">
+        {nextLinks.map((item) => (
+          <article class="feature-card">
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+            <div class="button-group button-group--spaced">
+              <a class="button button--ghost" href={item.href}>{item.cta}</a>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="cta-strip surface-card">
+        <p class="eyebrow">Финальный CTA</p>
+        <h2>Если нужного файла нет в открытом доступе, следующий шаг — прямой запрос</h2>
+        <p>
+          Сайт уже показывает базовую структуру материалов. Если нужен пакет для
+          конкретной сети, SKU или формата переговоров, лучше перейти в раздел
+          «Для сетей» или сразу связаться с отделом продаж.
+        </p>
+        <div class="button-group">
+          <a class="button" href="/partneram/">Для сетей</a>
+          <a class="button button--secondary" href="/kontakty/">Связаться</a>
+          <a class="button button--ghost" href="/docs/pastodel-b2b-placeholder.pdf" download>
+            Скачать PDF
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

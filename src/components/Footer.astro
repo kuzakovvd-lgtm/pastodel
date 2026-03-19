@@ -1,5 +1,5 @@
 ---
-import { brand, navigation } from "../data/site";
+import { brand, companyLinks, legalLinks, navigation } from "../data/site";
 
 const year = new Date().getFullYear();
 ---
@@ -26,17 +26,29 @@ const year = new Date().getFullYear();
     </div>
 
     <div class="footer-block">
-      <p class="footer-title">Контакты</p>
+      <p class="footer-title">Маршруты</p>
       <ul class="footer-list">
-        <li><a href={`tel:${brand.phone.replace(/[^\d+]/g, "")}`}>{brand.phone}</a></li>
-        <li><a href={`mailto:${brand.email}`}>{brand.email}</a></li>
-        <li>{brand.address}</li>
+        <li><a href="/partneram/">Для сетей</a></li>
+        <li><a href="/kontakty/">Контакты</a></li>
+        <li><a href="/gde-kupit/">Где купить</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-block">
+      <p class="footer-title">Компания и legal</p>
+      <ul class="footer-list">
+        {companyLinks.map((item) => (
+          <li><a href={item.href}>{item.label}</a></li>
+        ))}
+        {legalLinks.map((item) => (
+          <li><a href={item.href}>{item.label}</a></li>
+        ))}
       </ul>
     </div>
   </div>
 
   <div class="container footer-meta">
-    <p>© {year} {brand.legalName}. Все права защищены.</p>
-    <p>ИНН {brand.inn} • ОГРН {brand.ogrn}</p>
+    <p>© {year} {brand.name}. Статический сайт производителя для продуктового и B2B-сценария.</p>
+    <p>Юридические тексты требуют финальной проверки перед публикацией.</p>
   </div>
 </footer>

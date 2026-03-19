@@ -1,0 +1,217 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SectionHeading from "../components/SectionHeading.astro";
+const specializations = [
+  {
+    title: "Фокус на готовых замороженных блюдах",
+    text: "Pastodel подается как производитель продукта для повседневного спроса: понятные блюда, короткий сценарий приготовления и ясная роль в retail-категории.",
+  },
+  {
+    title: "Работа на массовый сценарий покупки",
+    text: "Продуктовая логика строится вокруг вкусов и форматов, которые не требуют сложной коммуникации ни на полке, ни в digital-витрине.",
+  },
+  {
+    title: "B2B-ориентированная структура сайта",
+    text: "Корпоративный, продуктовый и sell-in-контур уже разведены по отдельным разделам, чтобы байеру было проще проходить сайт по деловому сценарию.",
+  },
+];
+
+const brandPurpose = [
+  {
+    title: "Упростить выбор готового блюда",
+    text: "Pastodel собирает линейку вокруг продуктов, которые легко считываются покупателем и не требуют сложного объяснения.",
+  },
+  {
+    title: "Поддержать диалог с сетью понятным ассортиментом",
+    text: "Ассортимент и структура сайта уже собраны так, чтобы обсуждение с сетью начиналось с ясных SKU, а не с абстрактной брендовой легенды.",
+  },
+];
+
+const productApproach = [
+  {
+    title: "Продукт как практичное решение",
+    text: "Сайт описывает Pastodel через понятные блюда, формат упаковки и сценарий использования, а не через эмоциональные обещания без опоры на продукт.",
+  },
+  {
+    title: "Ассортимент как структура, а не хаос",
+    text: "Линейка разбита по ролям и вкусовым сценариям, чтобы и покупателю, и байеру было проще ориентироваться в продукте.",
+  },
+  {
+    title: "Контент готов к дальнейшему уточнению",
+    text: "Когда появятся подтвержденные данные по качеству, производству и документам, сайт уже готов принять их без перестройки архитектуры.",
+  },
+];
+
+const trustBlocks = [
+  {
+    title: "Производство и качество",
+    text: "Отдельный раздел уже выделен под подтвержденную информацию о процессе выпуска, контроле качества и стандартах.",
+    href: "/proizvodstvo-i-kachestvo/",
+    cta: "Открыть раздел",
+  },
+  {
+    title: "Документы",
+    text: "Для сертификатов, спецификаций и материалов под ввод в сеть на сайте предусмотрен отдельный документальный контур.",
+    href: "/dokumenty/",
+    cta: "Перейти к документам",
+  },
+  {
+    title: "Для сетей",
+    text: "Основная sell-in-логика вынесена в B2B-раздел, чтобы корпоративная страница оставалась страницей доверия, а не переговорным лендингом.",
+    href: "/partneram/",
+    cta: "Перейти в B2B-раздел",
+  },
+];
+---
+
+<BaseLayout
+  title="О компании Pastodel"
+  description="Pastodel как производитель готовых замороженных блюд: продуктовый фокус, подход к ассортименту, качеству и деловому диалогу."
+  canonical="/o-kompanii/"
+>
+  <section class="page-intro">
+    <div class="container page-intro__inner">
+      <p class="eyebrow">О компании</p>
+      <h1>Pastodel как производитель продукта для retail и партнерского диалога</h1>
+      <p>
+        Эта страница нужна не для абстрактной брендовой истории, а для базового
+        доверия к производителю. Здесь собраны спокойные и подтверждаемые
+        тезисы: на чем сфокусирован продукт, как построен подход к ассортименту
+        и куда дальше идти за B2B-материалами.
+      </p>
+      <div class="button-group">
+        <a class="button" href="/partneram/">Для сетей</a>
+        <a class="button button--secondary" href="/dokumenty/">Документы</a>
+        <a class="button button--ghost" href="/kontakty/">Связаться</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tight-top">
+    <div class="container">
+      <SectionHeading
+        eyebrow="Кто мы"
+        title="Pastodel сфокусирован на готовом продукте с понятной логикой для полки и покупателя"
+        text="Основной смысл страницы — показать специализацию бренда и аккуратный подход к продукту без неподтвержденных корпоративных легенд."
+      />
+
+      <div class="cards-grid">
+        {specializations.map((item) => (
+          <article class="feature-card">
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container split-grid">
+      <article class="partner-card">
+        <p class="eyebrow">Зачем существует бренд</p>
+        <h2>Pastodel решает прикладную задачу: сделать готовое блюдо понятным и удобным для запуска</h2>
+        <div class="detail-stack">
+          {brandPurpose.map((item) => (
+            <div>
+              <h3>{item.title}</h3>
+              <p>{item.text}</p>
+            </div>
+          ))}
+        </div>
+      </article>
+
+      <article class="partner-card">
+        <p class="eyebrow">Продуктовый фокус</p>
+        <h2>Компания говорит с рынком через продукт, а не через общие обещания</h2>
+        <p>
+          На сайте Pastodel основное внимание отдано продукции, B2B-сценарию и
+          разделам качества и документов. Это помогает воспринимать бренд как
+          производителя с понятным деловым маршрутом, а не как декоративную
+          витрину без опоры на факты.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <SectionHeading
+        eyebrow="Подход к продукту"
+        title="Как Pastodel подходит к ассортименту и разработке"
+        text="Здесь нет неподтвержденных технических деталей — только те принципы, которые уже видны по структуре каталога и продуктовых страниц."
+      />
+
+      <div class="feature-grid">
+        {productApproach.map((item) => (
+          <article class="feature-card">
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <SectionHeading
+        eyebrow="Качество и производство"
+        title="Подтверждение доверия вынесено в отдельные разделы"
+        text="Страница о компании не подменяет собой технические и документальные разделы. Вместо этого она связывает пользователя с теми точками сайта, где доверие можно усиливать дальше."
+      />
+
+      <div class="cards-grid">
+        {trustBlocks.map((item) => (
+          <article class="feature-card">
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+            <div class="button-group button-group--spaced">
+              <a class="button button--ghost" href={item.href}>{item.cta}</a>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container split-grid">
+      <article class="partner-card">
+        <p class="eyebrow">Корпоративная информация</p>
+        <h2>Юридический контур уже добавлен в структуру сайта</h2>
+        <p>
+          В этой версии проекта страница не показывает неподтвержденные
+          реквизиты. Вместо этого на сайте уже заведены отдельные legal-страницы,
+          которые можно финализировать после юрпроверки и публикации реальных
+          данных компании.
+        </p>
+        <div class="button-group button-group--spaced">
+          <a class="button button--ghost" href="/politika-konfidentsialnosti/">
+            Политика конфиденциальности
+          </a>
+          <a class="button button--ghost" href="/soglasie-na-obrabotku-dannyh/">
+            Согласие на обработку данных
+          </a>
+        </div>
+      </article>
+
+      <article class="partner-card">
+        <p class="eyebrow">Что делать дальше</p>
+        <h2>После этой страницы логично переходить в переговорный или документальный контур</h2>
+        <p>
+          Если нужен диалог о запуске, следующий шаг — раздел «Для сетей». Если
+          нужны подтверждающие материалы, лучше идти в документы или в раздел
+          производства и качества.
+        </p>
+        <div class="button-group button-group--spaced">
+          <a class="button" href="/partneram/">Перейти в раздел для сетей</a>
+          <a class="button button--secondary" href="/proizvodstvo-i-kachestvo/">
+            Производство и качество
+          </a>
+          <a class="button button--ghost" href="/kontakty/">Связаться</a>
+        </div>
+      </article>
+    </div>
+  </section>
+</BaseLayout>

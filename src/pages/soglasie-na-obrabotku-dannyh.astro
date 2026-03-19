@@ -1,0 +1,77 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SectionHeading from "../components/SectionHeading.astro";
+---
+
+<BaseLayout
+  title="Согласие на обработку данных — Pastodel"
+  description="Базовая страница согласия на обработку данных для форм сайта Pastodel. Текст требует финальной юридической проверки перед публикацией."
+  canonical="/soglasie-na-obrabotku-dannyh/"
+>
+  <section class="page-intro">
+    <div class="container page-intro__inner">
+      <p class="eyebrow">Legal</p>
+      <h1>Согласие на обработку данных</h1>
+      <p>
+        Страница добавлена как базовая опора для форм сайта. Она требует
+        финального согласования перед запуском и не подменяет полноценный
+        юридический документ.
+      </p>
+    </div>
+  </section>
+
+  <section class="section section--tight-top">
+    <div class="container">
+      <SectionHeading
+        eyebrow="Статус страницы"
+        title="Это базовая legal-заготовка под формы сайта"
+        text="До публикации подтвержденных реквизитов, ответственных данных и точной схемы обработки обращений эта страница должна рассматриваться как черновой legal-контур."
+      />
+
+      <div class="partner-card">
+        <div class="detail-stack">
+          <div>
+            <h2>1. Предмет согласия</h2>
+            <p>
+              Пользователь предоставляет данные добровольно через формы сайта
+              для обратной связи по продукту, сотрудничеству или общему запросу.
+            </p>
+          </div>
+          <div>
+            <h2>2. Перечень данных</h2>
+            <p>
+              В форме могут указываться имя, компания, способ обратной связи,
+              тема обращения и текст сообщения.
+            </p>
+          </div>
+          <div>
+            <h2>3. Цель обработки</h2>
+            <p>
+              Связаться с пользователем, ответить на запрос, уточнить детали
+              обращения и продолжить диалог в потребительском или B2B-сценарии.
+            </p>
+          </div>
+          <div>
+            <h2>4. Ограничение</h2>
+            <p>
+              Финальные сроки хранения, реквизиты оператора и точная юридическая
+              модель обработки данных должны быть добавлены после юрпроверки.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="cta-strip surface-card">
+        <p class="eyebrow">Связанные разделы</p>
+        <h2>Страница используется рядом с формами и контактными маршрутами</h2>
+        <div class="button-group">
+          <a class="button" href="/kontakty/">Контакты</a>
+          <a class="button button--secondary" href="/politika-konfidentsialnosti/">
+            Политика конфиденциальности
+          </a>
+          <a class="button button--ghost" href="/dokumenty/">Документы</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

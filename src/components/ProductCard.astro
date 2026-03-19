@@ -3,9 +3,17 @@ import { flavorLabels, type Product } from "../data/products";
 
 interface Props {
   product: Product;
+  showHighlights?: boolean;
+  showNetworkCta?: boolean;
+  primaryLabel?: string;
 }
 
-const { product } = Astro.props;
+const {
+  product,
+  showHighlights = false,
+  showNetworkCta = false,
+  primaryLabel = "Смотреть продукт",
+} = Astro.props;
 ---
 
 <article
@@ -36,14 +44,29 @@ const { product } = Astro.props;
     <p class="product-card__subtitle">{product.subtitle}</p>
     <p class="product-card__summary">{product.summary}</p>
 
+    {showHighlights && (
+      <ul class="highlight-list highlight-list--compact" aria-label="Ключевые характеристики">
+        {product.highlights.slice(0, 3).map((item) => (
+          <li>{item}</li>
+        ))}
+      </ul>
+    )}
+
     <ul class="tag-list" aria-label="Профиль вкуса">
       {product.flavorKeys.map((key) => (
         <li>{flavorLabels[key]}</li>
       ))}
     </ul>
 
-    <a class="button button--ghost" href={`/katalog/${product.slug}/`}>
-      Смотреть продукт
-    </a>
+    <div class="button-group button-group--stack">
+      <a class="button button--ghost" href={`/katalog/${product.slug}/`}>
+        {primaryLabel}
+      </a>
+      {showNetworkCta && (
+        <a class="button button--text" href="/partneram/">
+          Для сетей
+        </a>
+      )}
+    </div>
   </div>
 </article>
