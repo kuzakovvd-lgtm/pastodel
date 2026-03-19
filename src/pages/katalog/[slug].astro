@@ -1,5 +1,6 @@
 ---
 import ProductCard from "../../components/ProductCard.astro";
+import ProductImage from "../../components/ProductImage.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { flavorLabels, products, type Product } from "../../data/products";
 import { brand } from "../../data/site";
@@ -118,11 +119,13 @@ const productSchema = {
 
       <div class="product-layout">
         <div class="product-media product-detail-card">
-          <img
+          <ProductImage
             src={product.image}
             alt={product.title}
             width="960"
-            height="720"
+            height="960"
+            loading="eager"
+            variant="detail"
           />
         </div>
 

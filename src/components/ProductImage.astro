@@ -1,0 +1,43 @@
+---
+interface Props {
+  src?: string;
+  alt: string;
+  width?: number | string;
+  height?: number | string;
+  loading?: "lazy" | "eager";
+  variant?: "card" | "detail";
+}
+
+const {
+  src,
+  alt,
+  width = 960,
+  height = 720,
+  loading = "lazy",
+  variant = "card",
+} = Astro.props;
+---
+
+<div
+  class:list={["product-image", variant === "detail" && "product-image--detail"]}
+  data-product-image
+  data-has-error={src ? "false" : "true"}
+>
+  {src && (
+    <img
+      src={src}
+      alt={alt}
+      width={width}
+      height={height}
+      loading={loading}
+      decoding="async"
+      onerror="this.closest('[data-product-image]').setAttribute('data-has-error', 'true'); this.remove();"
+    />
+  )}
+
+  <div class="product-image__fallback" aria-hidden="true">
+    <span class="product-image__badge">Pastodel</span>
+    <strong>{alt}</strong>
+    <span>Изображение SKU добавляется без перестройки страницы.</span>
+  </div>
+</div>

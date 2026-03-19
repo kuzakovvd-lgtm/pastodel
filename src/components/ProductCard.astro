@@ -1,4 +1,5 @@
 ---
+import ProductImage from "./ProductImage.astro";
 import { flavorLabels, type Product } from "../data/products";
 
 interface Props {
@@ -23,13 +24,7 @@ const {
   data-flavors={product.flavorKeys.join(" ")}
 >
   <a class="product-card__media" href={`/katalog/${product.slug}/`}>
-    <img
-      src={product.image}
-      alt={product.title}
-      width="960"
-      height="720"
-      loading="lazy"
-    />
+    <ProductImage src={product.image} alt={product.title} />
   </a>
 
   <div class="product-card__content">
