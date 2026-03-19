@@ -84,7 +84,10 @@ sudo mkdir -p /var/www/pastodel
 rsync -av --delete dist/ user@server:/var/www/pastodel/dist/
 ```
 
-4. Подключите Nginx-конфиг из файла [`DEPLOY_NGINX.md`](./DEPLOY_NGINX.md).
+4. Подключите Nginx-конфиг из файла [`DEPLOY_NGINX.md`](./DEPLOY_NGINX.md). В многосайтовой схеме используйте:
+
+- отдельный `server` для `pastodel.ru`
+- отдельный `default_server`, который не отдает Pastodel по IP
 
 5. Проверьте конфиг и перезагрузите Nginx:
 
@@ -104,7 +107,7 @@ npm install
 npm run build
 ```
 
-4. Укажите `root` в Nginx на `/var/www/pastodel/dist`.
+4. После сборки перенесите содержимое `dist/` в `/var/www/pastodel/` и укажите `root` в Nginx на `/var/www/pastodel`.
 
 ## Формы
 

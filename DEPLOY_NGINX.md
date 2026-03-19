@@ -1,20 +1,34 @@
 # Nginx-конфигурация для `pastodel.ru`
 
-Ниже пример рабочего server block для размещения статической Astro-сборки на Ubuntu с Nginx.
+Ниже пример рабочей конфигурации для размещения статической Astro-сборки на Ubuntu с Nginx на сервере, где может быть несколько сайтов.
 
 Предполагается, что сайт развернут в:
 
 ```bash
-/var/www/pastodel/dist
+/var/www/pastodel
 ```
 
-## Пример server block
+## 1. Default catch-all для всех неизвестных хостов
+
+Такой конфиг нужен, чтобы IP сервера или чужие `Host`-заголовки не открывали Pastodel по умолчанию.
+
+```nginx
+server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+    server_name _;
+
+    return 444;
+}
+```
+
+## 2. Конфиг Pastodel
 
 ```nginx
 server {
     listen 80;
     listen [::]:80;
-    server_name pastodel.ru www.pastodel.ru;
+    server_name pastodel.ru www.pastodel.ru 85.239.63.149;
 
     root /var/www/pastodel/dist;
     index index.html;
@@ -65,29 +79,46 @@ server {
 }
 ```
 
+IP можно оставить временно, пока домен не переключен на сервер. После обновления DNS его лучше убрать из `server_name`, чтобы сайт открывался только по домену.
+
 ## Подключение конфига
 
-1. Создайте файл:
+1. Создайте default-конфиг:
+
+```bash
+sudo nano /etc/nginx/sites-available/default-catchall
+```
+
+2. Вставьте в него `default_server` из раздела выше.
+
+3. Создайте конфиг сайта:
 
 ```bash
 sudo nano /etc/nginx/sites-available/pastodel.ru
 ```
 
-2. Вставьте конфиг выше.
+4. Вставьте конфиг сайта выше.
 
-3. Создайте симлинк:
+5. Создайте симлинки:
 
 ```bash
+sudo ln -s /etc/nginx/sites-available/default-catchall /etc/nginx/sites-enabled/default-catchall
 sudo ln -s /etc/nginx/sites-available/pastodel.ru /etc/nginx/sites-enabled/pastodel.ru
 ```
 
-4. Проверьте конфигурацию:
+6. Если активен стандартный `default`, удалите его:
+
+```bash
+sudo rm -f /etc/nginx/sites-enabled/default
+```
+
+7. Проверьте конфигурацию:
 
 ```bash
 sudo nginx -t
 ```
 
-5. Перезагрузите Nginx:
+8. Перезагрузите Nginx:
 
 ```bash
 sudo systemctl reload nginx
