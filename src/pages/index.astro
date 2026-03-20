@@ -1,7 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import HeroSection from "../components/HeroSection.astro";
-import StatsSection from "../components/StatsSection.astro";
 import RetailSection from "../components/RetailSection.astro";
 import ProductsSection from "../components/ProductsSection.astro";
 import { brand } from "../data/site";
@@ -23,7 +22,6 @@ const organizationSchema = {
   schema={organizationSchema}
 >
   <HeroSection />
-  <StatsSection />
   <RetailSection />
   <ProductsSection />
 </BaseLayout>

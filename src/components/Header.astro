@@ -3,33 +3,22 @@ import { brand, navigation } from "../data/site";
 
 const pathname = Astro.url.pathname;
 const isActive = (href: string) =>
-  href === "/" ? pathname === "/" : pathname === href || pathname.startsWith(href);
+  href === "/"
+    ? pathname === "/"
+    : pathname === href || pathname.startsWith(href);
 ---
 
-<header class="site-header" data-site-header>
-  <div class="container site-header__inner">
+<header class="site-header">
+  <div class="container nav-shell">
     <a class="brand-mark" href="/" aria-label={`${brand.name} — на главную`}>
-      <span class="brand-mark__symbol" aria-hidden="true">P</span>
+      <span class="brand-mark__symbol">P</span>
       <span class="brand-mark__copy">
         <strong>{brand.name}</strong>
         <span>готовые замороженные блюда</span>
       </span>
     </a>
 
-    <button
-      class="nav-toggle"
-      type="button"
-      aria-expanded="false"
-      aria-controls="site-navigation"
-      data-nav-toggle
-    >
-      <span class="sr-only">Открыть меню</span>
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
-
-    <nav class="site-nav" id="site-navigation" aria-label="Основная навигация" data-site-nav>
+    <nav aria-label="Основная навигация">
       <ul class="nav-list">
         {navigation.map((item) => (
           <li>
@@ -42,43 +31,3 @@ const isActive = (href: string) =>
     </nav>
   </div>
 </header>
-
-<script is:inline>
-  (() => {
-    const header = document.querySelector("[data-site-header]");
-    const toggle = document.querySelector("[data-nav-toggle]");
-    const nav = document.querySelector("[data-site-nav]");
-
-    if (header) {
-      const syncHeaderState = () => {
-        header.classList.toggle("is-compact", window.scrollY > 24);
-      };
-
-      syncHeaderState();
-      window.addEventListener("scroll", syncHeaderState, { passive: true });
-    }
-
-    if (!(toggle instanceof HTMLButtonElement) || !(nav instanceof HTMLElement)) return;
-
-    const setExpanded = (expanded) => {
-      toggle.setAttribute("aria-expanded", String(expanded));
-      nav.dataset.open = expanded ? "true" : "false";
-      document.body.classList.toggle("nav-open", expanded);
-    };
-
-    setExpanded(false);
-
-    toggle.addEventListener("click", () => {
-      const expanded = toggle.getAttribute("aria-expanded") === "true";
-      setExpanded(!expanded);
-    });
-
-    nav.querySelectorAll("a").forEach((link) => {
-      link.addEventListener("click", () => setExpanded(false));
-    });
-
-    window.addEventListener("resize", () => {
-      if (window.innerWidth >= 960) setExpanded(false);
-    });
-  })();
-</script>
