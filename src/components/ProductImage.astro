@@ -44,7 +44,11 @@ const responsiveSizes =
 ---
 
 <div
-  class:list={["product-image", variant === "detail" && "product-image--detail"]}
+  class:list={[
+    "product-image",
+    variant === "card" && "product-image--card",
+    variant === "detail" && "product-image--detail",
+  ]}
   data-product-image
   data-has-error={src ? "false" : "true"}
 >
