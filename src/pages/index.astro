@@ -1,40 +1,10 @@
 ---
-import ProductCard from "../components/ProductCard.astro";
-import SectionHeading from "../components/SectionHeading.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { products } from "../data/products";
-import { brand, cookingSteps, heroStats, homeBenefits } from "../data/site";
-
-const featuredProductSlugs = [
-  "mak-end-chiz",
-  "vetchina-griby-slivochny-sous",
-  "primavera",
-];
-const featuredProducts = featuredProductSlugs
-  .map((slug) => products.find((product) => product.slug === slug))
-  .filter(Boolean);
-const keyBenefits = homeBenefits.slice(0, 3);
-
-const buyTeasers = [
-  {
-    title: "Для повседневной покупки",
-    text: "Раздел помогает быстро понять, в каких каналах и форматах искать продукт.",
-    href: "/gde-kupit/",
-    cta: "Открыть раздел",
-  },
-  {
-    title: "Для выбора конкретного вкуса",
-    text: "Если нужно сравнить SKU и формат линейки, переходите в раздел продукции.",
-    href: "/katalog/",
-    cta: "Смотреть продукцию",
-  },
-];
-
-const networkLinks = [
-  { href: "/partneram/", label: "Перейти в раздел для сетей" },
-  { href: "/o-kompanii/", label: "О компании" },
-  { href: "/proizvodstvo-i-kachestvo/", label: "Производство и качество" },
-];
+import HeroSection from "../components/HeroSection.astro";
+import StatsSection from "../components/StatsSection.astro";
+import RetailSection from "../components/RetailSection.astro";
+import ProductsSection from "../components/ProductsSection.astro";
+import { brand } from "../data/site";
 
 const organizationSchema = {
   "@context": "https://schema.org",
@@ -42,186 +12,18 @@ const organizationSchema = {
   name: brand.name,
   url: brand.siteUrl,
   logo: `${brand.siteUrl}/favicon.svg`,
-  description: brand.slogan,
+  description: "Готовые замороженные блюда для быстрого и понятного выбора.",
 };
 ---
 
 <BaseLayout
-  title="Pastodel — готовые замороженные блюда для повседневного спроса и торговых сетей"
-  description="Pastodel — линейка готовых замороженных блюд с понятными вкусами, карточками SKU и отдельным B2B-разделом для торговых сетей."
+  title="Pastodel — готовые замороженные блюда"
+  description="Pastodel — готовые замороженные блюда для быстрого и понятного выбора: линейка продукции для покупателей и понятный маршрут для торговых сетей."
   image="/images/og-card.png"
   schema={organizationSchema}
 >
-  <section class="hero">
-    <div class="container hero-grid">
-      <div class="hero-copy">
-        <p class="eyebrow">Замороженная готовая паста</p>
-        <h1>Понятный продукт для быстрого ужина и отдельный маршрут для торговых сетей</h1>
-        <p class="lead">
-          Pastodel — линейка готовых замороженных блюд с массовыми вкусами и
-          понятным сценарием приготовления. Покупателю сайт помогает быстро
-          перейти к продукции и разделу «Где купить», а байеру — сразу попасть в
-          раздел для сетей.
-        </p>
-
-        <div class="button-group">
-          <a class="button" href="/katalog/">Смотреть продукцию</a>
-          <a class="button button--secondary" href="/gde-kupit/">Где купить</a>
-          <a class="button button--ghost" href="/partneram/">Для сетей</a>
-        </div>
-
-        <ul class="stats-list" aria-label="Ключевые характеристики продукта">
-          {heroStats.map((item) => (
-            <li>
-              <strong>{item.value}</strong>
-              <span>{item.label}</span>
-            </li>
-          ))}
-        </ul>
-      </div>
-
-      <div class="hero-art surface-card">
-        <div class="hero-visual">
-          <div class="hero-plate" aria-hidden="true"></div>
-        </div>
-        <div class="hero-card-note hero-card-note--top">
-          <strong>Понятные вкусы</strong>
-          <span>Линейка собрана вокруг знакомых сочетаний без сложного выбора.</span>
-        </div>
-        <div class="hero-card-note hero-card-note--bottom">
-          <strong>Быстрый маршрут</strong>
-          <span>Сайт сразу разводит пользователя в продукцию, каналы покупки и B2B-раздел.</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" id="benefits">
-    <div class="container">
-      <SectionHeading
-        eyebrow="Преимущества формата"
-        title="Почему формат Pastodel считывается быстро"
-        text="Задача этого блока — за несколько экранов объяснить, чем продукт удобен в повседневном сценарии и почему им легко заинтересоваться с первого взгляда."
-      />
-
-      <div class="feature-grid">
-        {keyBenefits.map((benefit) => (
-          <article class="feature-card">
-            <h3>{benefit.title}</h3>
-            <p>{benefit.text}</p>
-          </article>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <section class="section" id="popular">
-    <div class="container">
-      <SectionHeading
-        eyebrow="Ассортимент"
-        title="С каких SKU удобнее начать знакомство с линейкой"
-        text="Главная показывает только витрину популярных позиций и дальше отправляет пользователя в полноценный раздел продукции."
-      />
-
-      <div class="products-grid">
-        {featuredProducts.map((product) => (
-          <ProductCard product={product} />
-        ))}
-      </div>
-
-      <div class="cta-strip surface-card home-inline-cta">
-        <p class="eyebrow">Весь ассортимент</p>
-        <h2>Остальные вкусы и карточки SKU собраны в отдельном разделе</h2>
-        <div class="button-group">
-          <a class="button" href="/katalog/">Перейти к продукции</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" id="cook">
-    <div class="container">
-      <SectionHeading
-        eyebrow="Как приготовить"
-        title="Три шага до готового блюда"
-        text="Блок нужен только для объяснения простого сценария использования без лишних деталей и без замены карточек товаров."
-      />
-
-      <div class="steps-grid">
-        {cookingSteps.map((step, index) => (
-          <article class="step-card">
-            <p class="eyebrow">Шаг {index + 1}</p>
-            <h3>{step.title}</h3>
-            <p>{step.text}</p>
-          </article>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <section class="section" id="buy">
-    <div class="container">
-      <SectionHeading
-        eyebrow="Где купить"
-        title="Покупателю нужен короткий путь к каналам продаж"
-        text="На главной этот блок работает как анонс: он не заменяет раздел «Где купить», а только направляет в него."
-      />
-
-      <div class="cards-grid">
-        {buyTeasers.map((item) => (
-          <article class="feature-card">
-            <h3>{item.title}</h3>
-            <p>{item.text}</p>
-            <div class="button-group button-group--spaced">
-              <a class="button button--ghost" href={item.href}>{item.cta}</a>
-            </div>
-          </article>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <section class="section" id="b2b">
-    <div class="container">
-      <div class="partner-band surface-card">
-        <p class="eyebrow">Для торговых сетей</p>
-        <h2>Если вы оцениваете продукт для матрицы, на сайте есть отдельный B2B-раздел</h2>
-        <p>
-          Главная не дублирует коммерческие материалы, а только подводит к ним.
-          Подробный маршрут для байера, дистрибьютора или партнера вынесен в
-          раздел «Для сетей».
-        </p>
-        <div class="button-group">
-          <a class="button" href="/partneram/">Перейти в раздел для сетей</a>
-          <a class="button button--ghost" href="/docs/pastodel-b2b-placeholder.pdf" download>
-            Скачать PDF
-          </a>
-        </div>
-        <ul class="home-link-list" aria-label="Ссылки для B2B-маршрута">
-          {networkLinks.map((item) => (
-            <li><a href={item.href}>{item.label}</a></li>
-          ))}
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" id="final-cta">
-    <div class="container">
-      <div class="cta-strip surface-card">
-        <p class="eyebrow">Следующий шаг</p>
-        <h2>Сайт уже разведен по двум сценариям: покупка продукта и B2B-диалог</h2>
-        <p>
-          Если вы выбираете вкус и формат, переходите в продукцию и раздел
-          «Где купить». Если вы представляете сеть или дистрибьютора, используйте
-          раздел «Для сетей» и контакты.
-        </p>
-        <div class="button-group">
-          <a class="button" href="/katalog/">Продукция</a>
-          <a class="button button--secondary" href="/partneram/">Для сетей</a>
-          <a class="button button--ghost" href="/kontakty/">Контакты</a>
-        </div>
-      </div>
-    </div>
-  </section>
+  <HeroSection />
+  <StatsSection />
+  <RetailSection />
+  <ProductsSection />
 </BaseLayout>

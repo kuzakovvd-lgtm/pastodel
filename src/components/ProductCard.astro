@@ -23,7 +23,7 @@ const {
 
 <article
   class:list={[
-    "product-card",
+    "product-card pd-product-card",
     showHighlights && "product-card--rich",
     showNetworkCta && "product-card--network",
   ]}
@@ -40,7 +40,7 @@ const {
     />
   </a>
 
-  <div class="product-card__content">
+  <div class="product-card__content pd-product-card__body">
     <div class="product-card__meta">
       <span class="pill">{product.lineLabel}</span>
       <span class="product-card__weight">{product.weightLabel}</span>
@@ -50,7 +50,7 @@ const {
       <a href={`/katalog/${product.slug}/`}>{product.title}</a>
     </h3>
     <p class="product-card__subtitle">{product.subtitle}</p>
-    <p class="product-card__summary">{product.summary}</p>
+    <p class="product-card__summary pd-product-card__desc">{product.summary}</p>
 
     {showHighlights && (
       <ul class="highlight-list highlight-list--compact" aria-label="Ключевые характеристики">

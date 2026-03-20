@@ -1,0 +1,264 @@
+---
+const products = [
+  {
+    title: "Паста с томатным соусом",
+    text: "Классический вкус для повседневного выбора.",
+    href: "/katalog/pasta-frikadelki-tomatny-sous/",
+    image: "/images/products/pasta-s-frikadelkami-i-tomatnym-sousom.jpg",
+    alt: "Паста Pastodel с томатным соусом",
+  },
+  {
+    title: "Паста со сливочным соусом",
+    text: "Мягкий сливочный вкус для спокойного домашнего ужина.",
+    href: "/katalog/karbonara/",
+    image: "/images/products/karbonara.jpg",
+    alt: "Паста Pastodel со сливочным соусом",
+  },
+  {
+    title: "Ризотто с грибами",
+    text: "Сытное блюдо со знакомой гастрономией и удобным сценарием приготовления.",
+    href: "/katalog/rizotto-griby-slivochny-sous/",
+    image: "/images/products/rizotto-s-gribami-i-slivochnym-sousom.jpg",
+    alt: "Ризотто Pastodel с грибами",
+  },
+  {
+    title: "Паэлья с курицей",
+    text: "Более яркий вкус для тех, кто хочет разнообразить привычный ужин.",
+    href: "/katalog/paelya-kuritsa-ovoshchi/",
+    image: "/images/products/paelya-s-kuritsey-i-ovoshchami.jpg",
+    alt: "Паэлья Pastodel с курицей",
+  },
+];
+---
+
+<section class="products-section" id="products" aria-labelledby="products-title">
+  <div class="container">
+    <div class="products-section__heading">
+      <p class="products-section__eyebrow">ПРОДУКЦИЯ</p>
+      <h2 id="products-title">Линейка для быстрого и понятного выбора</h2>
+      <p class="products-section__subhead">
+        Знакомые вкусы, удобные форматы и готовность за считанные минуты.
+      </p>
+    </div>
+
+    <div class="products-section__grid">
+      {products.map((product) => (
+        <article class="product-preview pd-product-card">
+          <a class="product-preview__image" href={product.href}>
+            <img
+              src={product.image}
+              alt={product.alt}
+              width="720"
+              height="720"
+              loading="lazy"
+            />
+          </a>
+          <div class="product-preview__body pd-product-card__body">
+            <h3><a href={product.href}>{product.title}</a></h3>
+            <p class="pd-product-card__desc">{product.text}</p>
+            <a class="pd-button pd-button--ghost" href={product.href}>Смотреть состав и способ приготовления</a>
+          </div>
+        </article>
+      ))}
+    </div>
+
+    <section class="pd-section pd-home-benefits">
+      <div class="pd-container">
+        <div class="pd-section-head">
+          <p class="pd-eyebrow">Формат</p>
+          <h2>Почему такой формат удобен дома</h2>
+          <p class="pd-lead">В линейке Pastodel собраны готовые блюда, которые удобно хранить, быстро разогревать и просто выбирать.</p>
+        </div>
+
+        <div class="pd-grid pd-grid--4">
+          <article class="pd-feature-card">
+            <h3>Формат 400 г</h3>
+            <p>Основной формат линейки уже собран вокруг порции 400 г.</p>
+          </article>
+
+          <article class="pd-feature-card">
+            <h3>Понятные вкусы</h3>
+            <p>В линейке уже есть классические сливочные, томатные и более яркие вкусовые сценарии.</p>
+          </article>
+
+          <article class="pd-feature-card">
+            <h3>Простой выбор</h3>
+            <p>Карточки товаров уже показывают вкус, состав, хранение и способ приготовления.</p>
+          </article>
+
+          <article class="pd-feature-card">
+            <h3>Удобный маршрут</h3>
+            <p>От главной страницы можно сразу перейти в каталог, карточку товара или раздел «Где купить».</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="pd-section pd-faq-section">
+      <div class="pd-container">
+        <div class="pd-section-head">
+          <p class="pd-eyebrow">FAQ</p>
+          <h2>FAQ: ваши вопросы — наши ответы</h2>
+        </div>
+
+        <div class="pd-faq" data-accordion>
+          <div class="pd-faq__item">
+            <button class="pd-faq__button" type="button" aria-expanded="false">Из чего состоит продукт?</button>
+            <div class="pd-faq__panel">
+              <p>Откройте карточку нужного SKU: там уже собраны состав, способ приготовления, условия хранения и формат упаковки.</p>
+            </div>
+          </div>
+
+          <div class="pd-faq__item">
+            <button class="pd-faq__button" type="button" aria-expanded="false">Сколько весит упаковка?</button>
+            <div class="pd-faq__panel">
+              <p>Основной формат линейки на сайте — 400 г.</p>
+            </div>
+          </div>
+
+          <div class="pd-faq__item">
+            <button class="pd-faq__button" type="button" aria-expanded="false">Как приготовить продукт?</button>
+            <div class="pd-faq__panel">
+              <p>Для каждого SKU способ приготовления вынесен в отдельный блок карточки товара.</p>
+            </div>
+          </div>
+
+          <div class="pd-faq__item">
+            <button class="pd-faq__button" type="button" aria-expanded="false">Где уточнить наличие?</button>
+            <div class="pd-faq__panel">
+              <p>Используйте раздел «Где купить», чтобы перейти в каталог и затем уточнить наличие по конкретному SKU.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="pd-section pd-reviews pd-is-hidden">
+      <!-- заполнить после передачи подтверждённых данных -->
+    </section>
+
+    <div class="products-section__footer">
+      <a class="button button--secondary" href="/katalog/">Вся продукция</a>
+      <a class="products-section__where" href="/gde-kupit/">Где купить</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .products-section {
+    padding: clamp(72px, 8vw, 112px) 0 clamp(64px, 7vw, 96px);
+  }
+
+  .products-section__heading {
+    display: grid;
+    gap: 16px;
+    margin-bottom: 28px;
+    max-width: 40rem;
+  }
+
+  .products-section__eyebrow {
+    margin: 0;
+    color: var(--brand-accent);
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  .products-section__subhead {
+    margin: 0;
+    color: var(--text-secondary);
+    font-size: clamp(1.0625rem, 1.7vw, 1.2rem);
+    line-height: 1.65;
+  }
+
+  .products-section__grid {
+    display: grid;
+    gap: 22px;
+  }
+
+  .product-preview {
+    display: grid;
+    height: 100%;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    border-radius: 30px;
+    background: var(--main-surface);
+    box-shadow: 0 16px 30px rgba(36, 28, 24, 0.04);
+  }
+
+  .product-preview__image {
+    display: block;
+    aspect-ratio: 1 / 0.78;
+    padding: 20px;
+    background:
+      radial-gradient(circle at 24% 18%, rgba(255, 255, 255, 0.72), transparent 24%),
+      linear-gradient(180deg, rgba(255, 253, 249, 0.96), rgba(239, 230, 218, 0.78));
+  }
+
+  .product-preview__image img {
+    width: 100%;
+    height: 100%;
+    border-radius: 24px;
+    object-fit: contain;
+    filter: drop-shadow(0 18px 22px rgba(76, 46, 25, 0.11));
+  }
+
+  .product-preview__body {
+    display: grid;
+    grid-template-rows: minmax(3.2rem, auto) minmax(4.8rem, auto) auto;
+    gap: 14px;
+    align-content: start;
+    padding: 24px 24px 26px;
+  }
+
+  .product-preview__body h3 {
+    font-size: clamp(1.42rem, 1.8vw, 1.68rem);
+    line-height: 1.12;
+  }
+
+  .product-preview__body p {
+    margin: 0;
+    color: var(--text-secondary);
+    line-height: 1.62;
+  }
+
+  .products-section__footer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    margin-top: 28px;
+  }
+
+  .products-section__where {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    color: var(--text-primary);
+    font-weight: 600;
+  }
+
+  @media (min-width: 760px) {
+    .products-section__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 719px) {
+    .products-section__grid {
+      gap: 18px;
+    }
+
+    .product-preview__image {
+      aspect-ratio: 1 / 0.86;
+      padding: 16px;
+    }
+
+    .product-preview__body {
+      grid-template-rows: auto auto auto;
+      padding: 20px 20px 22px;
+    }
+  }
+</style>

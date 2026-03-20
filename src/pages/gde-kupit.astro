@@ -1,77 +1,53 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import SectionHeading from "../components/SectionHeading.astro";
 
 const searchChannels = [
   {
     title: "Каталог SKU",
-    text: "Если вы еще выбираете вкус, начните с раздела продукции. Там собраны все SKU и отдельные карточки товаров с описанием вкуса, состава и приготовления.",
+    text: "Если вы ещё выбираете вкус, начните с раздела продукции. Там собраны SKU и карточки товаров с описанием.",
     href: "/katalog/",
     cta: "Перейти в каталог",
   },
   {
     title: "Карточки товаров",
-    text: "Если вас интересует конкретная позиция, открывайте страницу SKU. Это самый короткий путь к вкусу, формату, хранению и способу приготовления.",
+    text: "Если вас интересует конкретная позиция, откройте страницу SKU. Это самый короткий путь к вкусу, формату, хранению и способу приготовления.",
     href: "/katalog/",
     cta: "Открыть SKU",
   },
   {
     title: "Уточнение наличия",
-    text: "Если важно понять, где искать продукт в вашем сценарии покупки, используйте раздел контактов. Сейчас страница не изображает locator и не показывает неподтвержденные точки продаж.",
+    text: "Если важно понять, где искать продукт в вашем сценарии покупки, используйте маршрут запроса через контакты.",
     href: "/kontakty/",
-    cta: "Связаться",
+    cta: "Уточнить наличие",
   },
 ];
 
 const availabilitySteps = [
   {
     title: "Выберите SKU или вкус",
-    text: "Каталог помогает быстро понять, какую позицию вы ищете: классическую, более сытную или более легкую.",
+    text: "Каталог помогает быстро понять, какую позицию вы ищете.",
   },
   {
     title: "Перейдите в карточку товара",
-    text: "На product page уже собраны подтвержденные данные по вкусу, составу, приготовлению и формату упаковки.",
+    text: "На странице SKU уже собраны подтверждённые данные по вкусу, составу, приготовлению и формату упаковки.",
   },
   {
     title: "Уточните сценарий покупки",
-    text: "Если нужен ответ по представленности, используйте контакты. Так страница остается честной и не обещает несуществующий store locator.",
-  },
-];
-
-const routeLinks = [
-  {
-    title: "Для покупателя",
-    text: "Начните с каталога и карточек SKU, чтобы выбрать вкус и понять, что именно вы ищете.",
-    href: "/katalog/",
-  },
-  {
-    title: "Для сетей",
-    text: "Если ассортимент интересен для запуска, переходите в отдельный B2B-раздел «Для сетей».",
-    href: "/partneram/",
-  },
-  {
-    title: "Для запроса по наличию",
-    text: "Если нужен ручной маршрут без карты и без списка точек, используйте общую страницу контактов.",
-    href: "/kontakty/",
+    text: "Если нужен ответ по представленности, используйте страницу контактов.",
   },
 ];
 ---
 
 <BaseLayout
   title="Где искать продукцию Pastodel"
-  description="Где искать продукцию Pastodel: как выбрать SKU, куда перейти за деталями товара и как уточнить наличие без фейкового locator."
+  description="Где искать продукцию Pastodel: как выбрать SKU, куда перейти за деталями товара и как уточнить наличие."
   canonical="/gde-kupit/"
 >
   <section class="page-intro">
     <div class="container page-intro__inner">
       <p class="eyebrow">Где купить</p>
       <h1>Где искать продукцию Pastodel</h1>
-      <p>
-        Эта страница не изображает карту точек продаж и не показывает
-        неподтвержденные сети. Ее задача проще: помочь понять, где искать
-        продукт, как уточнить наличие и куда идти дальше за конкретным SKU или
-        B2B-запросом.
-      </p>
+      <p>Начните с каталога и карточки нужного SKU, затем используйте маршрут уточнения наличия.</p>
       <div class="button-group">
         <a class="button" href="/katalog/">Перейти в каталог</a>
         <a class="button button--secondary" href="/kontakty/">Уточнить наличие</a>
@@ -81,19 +57,17 @@ const routeLinks = [
 
   <section class="section section--tight-top">
     <div class="container">
-      <SectionHeading
-        eyebrow="С чего начать"
-        title="Три честных маршрута поиска продукта"
-        text="Вместо фейкового locator страница сразу подсказывает, как действовать в зависимости от сценария."
-      />
-
-      <div class="channels-grid">
+      <div class="pd-section-head">
+        <p class="pd-eyebrow">С чего начать</p>
+        <h2>Три маршрута поиска продукта</h2>
+      </div>
+      <div class="pd-grid pd-grid--3">
         {searchChannels.map((item) => (
-          <article class="channel-card">
+          <article class="pd-channel-card">
             <h3>{item.title}</h3>
             <p>{item.text}</p>
             <div class="button-group button-group--spaced">
-              <a class="button button--ghost" href={item.href}>{item.cta}</a>
+              <a class="pd-button pd-button--ghost" href={item.href}>{item.cta}</a>
             </div>
           </article>
         ))}
@@ -103,15 +77,13 @@ const routeLinks = [
 
   <section class="section">
     <div class="container">
-      <SectionHeading
-        eyebrow="Как уточнить"
-        title="Как действовать, если нужен конкретный вкус или ответ по представленности"
-        text="Блок нужен для практического сценария: выбрать SKU, открыть карточку и только потом уточнять наличие."
-      />
-
-      <div class="cards-grid">
+      <div class="pd-section-head">
+        <p class="pd-eyebrow">Как уточнить</p>
+        <h2>Как действовать, если нужен конкретный вкус</h2>
+      </div>
+      <div class="pd-grid pd-grid--3">
         {availabilitySteps.map((item) => (
-          <article class="feature-card">
+          <article class="pd-feature-card">
             <h3>{item.title}</h3>
             <p>{item.text}</p>
           </article>
@@ -122,60 +94,40 @@ const routeLinks = [
 
   <section class="section">
     <div class="container">
-      <SectionHeading
-        eyebrow="Переходы"
-        title="Куда идти дальше"
-        text="Страница работает как честный маршрутизатор: в каталог, в контакты или в B2B-раздел."
-      />
-
-      <div class="cards-grid">
-        {routeLinks.map((item) => (
-          <article class="feature-card">
-            <h3>{item.title}</h3>
-            <p>{item.text}</p>
-            <div class="button-group button-group--spaced">
-              <a class="button button--ghost" href={item.href}>Открыть раздел</a>
-            </div>
-          </article>
-        ))}
+      <div class="pd-section-head">
+        <p class="pd-eyebrow">FAQ</p>
+        <h2>FAQ</h2>
       </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="container">
-      <div class="partner-band surface-card">
-        <p class="eyebrow">Для сетей</p>
-        <h2>Если продукт интересен для запуска, используйте отдельный B2B-маршрут</h2>
-        <p>
-          Покупательский сценарий на этой странице заканчивается каталогом и
-          контактами. Для сети, дистрибьютора или пилотного запуска на сайте уже
-          подготовлен отдельный раздел «Для сетей».
-        </p>
-        <div class="button-group">
-          <a class="button" href="/partneram/">Перейти в раздел для сетей</a>
-          <a class="button button--ghost" href="/dokumenty/">Документы</a>
+      <div class="pd-faq" data-accordion>
+        <div class="pd-faq__item">
+          <button class="pd-faq__button" type="button" aria-expanded="false">Где можно купить Pastodel?</button>
+          <div class="pd-faq__panel">
+            <p>Используйте каталог и карточку нужного SKU, затем переходите к маршруту уточнения наличия.</p>
+          </div>
+        </div>
+        <div class="pd-faq__item">
+          <button class="pd-faq__button" type="button" aria-expanded="false">Как узнать наличие?</button>
+          <div class="pd-faq__panel">
+            <p>Если нужен ответ по конкретному вкусу или SKU, используйте форму на странице «Контакты» или маршрут запроса со страницы «Где купить».</p>
+          </div>
+        </div>
+        <div class="pd-faq__item">
+          <button class="pd-faq__button" type="button" aria-expanded="false">Можно ли заказать онлайн?</button>
+          <div class="pd-faq__panel">
+            <p>Онлайн-каналы нужно выводить только после подтверждения. Не добавлять их без данных.</p>
+          </div>
+        </div>
+        <div class="pd-faq__item">
+          <button class="pd-faq__button" type="button" aria-expanded="false">Где смотреть состав и способ приготовления?</button>
+          <div class="pd-faq__panel">
+            <p>Эти данные уже собраны в карточках SKU.</p>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="section">
-    <div class="container">
-      <div class="cta-strip surface-card">
-        <p class="eyebrow">Следующий шаг</p>
-        <h2>Сначала выберите SKU, затем уточните наличие или откройте B2B-раздел</h2>
-        <p>
-          Страница не обещает то, чего пока нет в проекте. Вместо этого она
-          помогает быстро перейти в продукцию, контакты или маршрут для торговых
-          сетей.
-        </p>
-        <div class="button-group">
-          <a class="button" href="/katalog/">Каталог</a>
-          <a class="button button--secondary" href="/kontakty/">Контакты</a>
-          <a class="button button--ghost" href="/partneram/">Для сетей</a>
-        </div>
-      </div>
-    </div>
+  <section class="pd-section pd-buy-channels pd-is-hidden">
+    <!-- заполнить после передачи подтверждённых логотипов и каналов продаж -->
   </section>
 </BaseLayout>

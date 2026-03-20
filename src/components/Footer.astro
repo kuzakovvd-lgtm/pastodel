@@ -1,54 +1,44 @@
 ---
-import { brand, companyLinks, legalLinks, navigation } from "../data/site";
+import { brand } from "../data/site";
 
 const year = new Date().getFullYear();
 ---
 
 <footer class="site-footer">
-  <div class="container footer-grid">
-    <div class="footer-block">
+  <div class="container site-footer__grid">
+    <div class="site-footer__brand">
       <a class="brand-mark brand-mark--footer" href="/">
-        <span class="brand-mark__symbol">P</span>
+        <span class="brand-mark__symbol" aria-hidden="true">P</span>
         <span class="brand-mark__copy">
           <strong>{brand.name}</strong>
-          <span>{brand.slogan}</span>
+          <span>готовые замороженные блюда</span>
         </span>
       </a>
+      <p class="site-footer__text">
+        Готовые замороженные блюда для быстрого и понятного выбора.
+      </p>
+      <p class="site-footer__text site-footer__text--muted">
+        Pastodel — линейка готовых замороженных блюд с понятными вкусами и
+        удобным сценарием приготовления.
+      </p>
+      <div class="pd-footer-cta">
+        <a class="pd-button" href="/kontakty/">Написать нам</a>
+        <p class="pd-form-note">Используйте форму запроса на странице «Контакты».</p>
+      </div>
     </div>
 
-    <div class="footer-block">
-      <p class="footer-title">Навигация</p>
-      <ul class="footer-list">
-        {navigation.map((item) => (
-          <li><a href={item.href}>{item.label}</a></li>
-        ))}
-      </ul>
-    </div>
-
-    <div class="footer-block">
-      <p class="footer-title">Маршруты</p>
-      <ul class="footer-list">
+    <div class="site-footer__contacts">
+      <p class="site-footer__title">Разделы</p>
+      <ul class="site-footer__list">
         <li><a href="/partneram/">Для сетей</a></li>
-        <li><a href="/kontakty/">Контакты</a></li>
         <li><a href="/gde-kupit/">Где купить</a></li>
+        <li><a href="/kontakty/">Контакты</a></li>
+        <li><a href="/politika-konfidentsialnosti/">Политика конфиденциальности</a></li>
       </ul>
     </div>
 
-    <div class="footer-block">
-      <p class="footer-title">Компания и legal</p>
-      <ul class="footer-list">
-        {companyLinks.map((item) => (
-          <li><a href={item.href}>{item.label}</a></li>
-        ))}
-        {legalLinks.map((item) => (
-          <li><a href={item.href}>{item.label}</a></li>
-        ))}
-      </ul>
+    <div class="site-footer__meta">
+      <p class="site-footer__copyright">© {year} {brand.name}</p>
     </div>
-  </div>
-
-  <div class="container footer-meta">
-    <p>© {year} {brand.name}. Статический сайт производителя для продуктового и B2B-сценария.</p>
-    <p>Юридические тексты требуют финальной проверки перед публикацией.</p>
   </div>
 </footer>

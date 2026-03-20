@@ -28,39 +28,6 @@ const relatedProducts = products
   })
   .slice(0, 3);
 
-const consumptionNotes = [
-  {
-    title: "Вкус и сценарий",
-    text: product.subtitle,
-  },
-  {
-    title: "Роль в линейке",
-    text: product.summary,
-  },
-  {
-    title: "Формат",
-    text: `${product.weightLabel}, ${product.packageType.toLowerCase()} для быстрого приготовления дома.`,
-  },
-];
-
-const bridgeLinks = [
-  {
-    href: "/gde-kupit/",
-    title: "Где купить",
-    text: "Раздел помогает понять, в каких каналах искать продукт и куда идти дальше за покупкой.",
-  },
-  {
-    href: "/partneram/",
-    title: "Для сетей",
-    text: "Если SKU интересен для запуска, отдельный B2B-раздел продолжает сценарий для байера и партнера.",
-  },
-  {
-    href: "/dokumenty/",
-    title: "Документы",
-    text: "На сайте уже есть раздел материалов для первого B2B-диалога и запроса дополнительных документов.",
-  },
-];
-
 const siteUrl = Astro.site?.toString() ?? brand.siteUrl;
 
 const productSchema = {
@@ -150,6 +117,13 @@ const productSchema = {
           <p class="product-summary__text">{product.summary}</p>
           <p>{product.description}</p>
 
+          <ul class="pd-product-benefits">
+            <li>Формат упаковки вынесен в карточку товара.</li>
+            <li>Состав собран в отдельном блоке.</li>
+            <li>Способ приготовления вынесен ниже на странице.</li>
+            <li>Маршрут «Где купить» и форма вопроса доступны отдельно.</li>
+          </ul>
+
           <ul class="highlight-list" aria-label="Преимущества продукта">
             {product.highlights.map((item) => (
               <li>{item}</li>
@@ -193,18 +167,6 @@ const productSchema = {
 
   <section class="section section--tight-top">
     <div class="container product-details-grid">
-      <article class="product-detail-card">
-        <h2>Вкус и сценарий</h2>
-        <div class="detail-stack">
-          {consumptionNotes.map((item) => (
-            <div>
-              <p class="meta-kicker">{item.title}</p>
-              <p>{item.text}</p>
-            </div>
-          ))}
-        </div>
-      </article>
-
       <article class="product-detail-card">
         <h2>Ключевые параметры</h2>
         <ul class="detail-list">
@@ -266,9 +228,6 @@ const productSchema = {
 
       <article class="product-detail-card">
         <h2>Хранение и формат</h2>
-        <p class="meta-kicker meta-kicker--spaced">
-          В этом блоке собраны только те параметры, которые уже подтверждены в проекте.
-        </p>
         <ul class="detail-list">
           {product.storage.map((rule) => (
             <li>{rule}</li>
@@ -284,35 +243,44 @@ const productSchema = {
 
   <section class="section">
     <div class="container">
-      <div class="cards-grid">
-        {bridgeLinks.map((item) => (
-          <article class="feature-card">
-            <h3>{item.title}</h3>
-            <p>{item.text}</p>
-            <div class="button-group button-group--spaced">
-              <a class="button button--ghost" href={item.href}>Открыть раздел</a>
-            </div>
-          </article>
-        ))}
+      <div class="pd-section-head">
+        <p class="pd-eyebrow">FAQ</p>
+        <h2>FAQ</h2>
+      </div>
+      <div class="pd-faq" data-accordion>
+        <div class="pd-faq__item">
+          <button class="pd-faq__button" type="button" aria-expanded="false">Где смотреть состав?</button>
+          <div class="pd-faq__panel">
+            <p>Состав вынесен в отдельный блок карточки товара.</p>
+          </div>
+        </div>
+        <div class="pd-faq__item">
+          <button class="pd-faq__button" type="button" aria-expanded="false">Как приготовить продукт дома?</button>
+          <div class="pd-faq__panel">
+            <p>Способ приготовления вынесен в отдельный блок карточки товара.</p>
+          </div>
+        </div>
+        <div class="pd-faq__item">
+          <button class="pd-faq__button" type="button" aria-expanded="false">Как хранить продукт?</button>
+          <div class="pd-faq__panel">
+            <p>Условия хранения вынесены в отдельный блок карточки товара.</p>
+          </div>
+        </div>
+        <div class="pd-faq__item">
+          <button class="pd-faq__button" type="button" aria-expanded="false">Где уточнить наличие?</button>
+          <div class="pd-faq__panel">
+            <p>Перейдите в раздел «Где купить» или оставьте запрос через страницу «Контакты».</p>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
   <section class="section">
     <div class="container">
-      <div class="cta-strip surface-card">
-        <p class="eyebrow">Покупка и запуск</p>
-        <h2>Этот SKU уже встроен в два маршрута: поиск продукта и B2B-диалог</h2>
-        <p>
-          Для потребительского сценария ведем в «Где купить». Для байера или
-          партнера оставляем короткий мост в раздел «Для сетей» и материалы,
-          которые помогают начать обсуждение линейки.
-        </p>
-        <div class="button-group">
-          <a class="button" href="/gde-kupit/">Где купить</a>
-          <a class="button button--secondary" href="/partneram/">Для сетей</a>
-          <a class="button button--ghost" href="/dokumenty/">Документы</a>
-        </div>
+      <div class="pd-product-cta">
+        <a class="pd-button" href="/gde-kupit/">Где купить</a>
+        <a class="pd-button pd-button--ghost" href="/kontakty/">Задать вопрос по продукту</a>
       </div>
     </div>
   </section>

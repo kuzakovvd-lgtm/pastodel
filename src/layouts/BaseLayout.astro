@@ -37,6 +37,12 @@ const schemaMarkup = schema ? JSON.stringify(schema, null, 2) : null;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@600;700&display=swap"
+      rel="stylesheet"
+    />
     <link rel="canonical" href={canonicalUrl} />
     {noindex && <meta name="robots" content="noindex, nofollow" />}
     <meta name="theme-color" content="#f7f0e7" />
@@ -63,5 +69,123 @@ const schemaMarkup = schema ? JSON.stringify(schema, null, 2) : null;
       <slot />
     </main>
     <Footer />
+    <script is:inline>
+      (() => {
+        const initAccordion = (selector) => {
+          document.querySelectorAll(selector).forEach((accordion) => {
+            const items = accordion.querySelectorAll(".pd-faq__item");
+
+            items.forEach((item) => {
+              const button = item.querySelector(".pd-faq__button");
+              const panel = item.querySelector(".pd-faq__panel");
+
+              if (!(button instanceof HTMLButtonElement) || !(panel instanceof HTMLElement)) return;
+
+              panel.hidden = !item.classList.contains("is-open");
+              button.setAttribute("aria-expanded", String(item.classList.contains("is-open")));
+
+              button.addEventListener("click", () => {
+                items.forEach((other) => {
+                  const otherButton = other.querySelector(".pd-faq__button");
+                  const otherPanel = other.querySelector(".pd-faq__panel");
+                  const shouldOpen = other === item ? !other.classList.contains("is-open") : false;
+
+                  other.classList.toggle("is-open", shouldOpen);
+
+                  if (otherButton instanceof HTMLButtonElement) {
+                    otherButton.setAttribute("aria-expanded", String(shouldOpen));
+                  }
+
+                  if (otherPanel instanceof HTMLElement) {
+                    otherPanel.hidden = !shouldOpen;
+                  }
+                });
+              });
+            });
+          });
+        };
+
+        const setFieldError = (form, fieldName, message) => {
+          const field = form.querySelector(`[name="${fieldName}"]`);
+          const errorNode = form.querySelector(`[data-error-for="${fieldName}"]`);
+          const hasError = Boolean(message);
+
+          if (field instanceof HTMLElement) {
+            field.classList.toggle("is-invalid", hasError);
+            field.setAttribute("aria-invalid", String(hasError));
+          }
+
+          if (errorNode instanceof HTMLElement) {
+            errorNode.textContent = message;
+          }
+        };
+
+        const clearFormState = (form) => {
+          form.querySelectorAll(".is-invalid").forEach((node) => node.classList.remove("is-invalid"));
+          form.querySelectorAll("[data-error-for]").forEach((node) => {
+            if (node instanceof HTMLElement) node.textContent = "";
+          });
+          const success = form.querySelector("[data-form-success]");
+          if (success instanceof HTMLElement) {
+            success.hidden = true;
+          }
+        };
+
+        const initValidatedForms = () => {
+          document.querySelectorAll("[data-validated-form]").forEach((form) => {
+            if (!(form instanceof HTMLFormElement)) return;
+
+            form.addEventListener("submit", (event) => {
+              event.preventDefault();
+              clearFormState(form);
+
+              const requiredError = "Пожалуйста, заполните обязательные поля.";
+              const emailError = "Пожалуйста, укажите корректный email.";
+              const privacyError = "Нужно согласие с политикой конфиденциальности.";
+              let hasError = false;
+
+              form.querySelectorAll("[data-required-field]").forEach((field) => {
+                if (!(field instanceof HTMLInputElement || field instanceof HTMLTextAreaElement || field instanceof HTMLSelectElement)) return;
+                if (field.type === "checkbox") return;
+
+                if (!String(field.value || "").trim()) {
+                  setFieldError(form, field.name, requiredError);
+                  hasError = true;
+                }
+              });
+
+              form.querySelectorAll('input[type="email"]').forEach((field) => {
+                if (!(field instanceof HTMLInputElement)) return;
+                const value = field.value.trim();
+                if (value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+                  setFieldError(form, field.name, emailError);
+                  hasError = true;
+                }
+              });
+
+              form.querySelectorAll('input[name="privacy"][type="checkbox"]').forEach((field) => {
+                if (!(field instanceof HTMLInputElement)) return;
+                if (!field.checked) {
+                  setFieldError(form, field.name, privacyError);
+                  hasError = true;
+                }
+              });
+
+              if (hasError) return;
+
+              const success = form.querySelector("[data-form-success]");
+              if (success instanceof HTMLElement) {
+                success.hidden = false;
+              }
+            });
+          });
+        };
+
+        document.addEventListener("DOMContentLoaded", () => {
+          initAccordion("[data-accordion]");
+          initValidatedForms();
+        });
+      })();
+    </script>
   </body>
 </html>

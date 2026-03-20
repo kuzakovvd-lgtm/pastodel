@@ -1,114 +1,126 @@
 ---
 import ProductCard from "../components/ProductCard.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import SectionHeading from "../components/SectionHeading.astro";
 import { products } from "../data/products";
-import { networkBenefits, partnerAssortment } from "../data/site";
 
-const buyerIntro = [
+const introCards = [
   {
     title: "Федеральные и региональные сети",
-    text: "Для категорий, где нужен понятный продукт с быстрым сценарием покупки и без сложной коммуникации на полке.",
+    text: "Для категорий, где нужен понятный продукт с быстрым сценарием покупки и без сложной полочной коммуникации.",
+    example: "Стартовый набор: Альфредо с курицей, Карбонара, Ветчина с грибами.",
+    cta: "Обсудить запуск",
   },
   {
-    title: "Дистрибьюторы и оптовые партнеры",
+    title: "Дистрибьюторы и оптовые партнёры",
     text: "Для каналов, где важны ясная продуктовая логика, аккуратный ассортимент и готовые материалы для первого обсуждения.",
+    example: "Базовый набор: Альфредо с курицей, Карбонара, Паста с фрикадельками.",
+    cta: "Запросить материалы",
   },
   {
     title: "Пилотные запуски и тестовые вводы",
     text: "Для сценариев, где запуск начинается с ограниченного набора SKU и последующей оценки спроса.",
+    example: "Тестовый набор: Карбонара, Паста с фрикадельками.",
+    cta: "Запросить условия",
   },
 ];
 
-const consumerFit = [
+const matrixCards = [
   {
-    title: "Массовые вкусы без сложного выбора",
-    text: "Линейка строится вокруг узнаваемых рецептур, которые не требуют дополнительного объяснения покупателю.",
+    title: "Понятные вкусы",
+    text: "Линейка построена вокруг узнаваемых вкусов без сложной полочной коммуникации.",
   },
   {
     title: "Формат 400 г",
-    text: "Линейка строится вокруг понятного формата готового блюда для быстрого ужина: от сытной порции на одного до сценария на двоих.",
+    text: "На сайте и в карточках SKU используется один базовый формат — 400 г.",
   },
   {
-    title: "Готовность за 7-10 минут",
-    text: "Сценарий приготовления совпадает с повседневным запросом на быстрый и предсказуемый результат.",
+    title: "Быстрый сценарий приготовления",
+    text: "В карточках SKU уже вынесен способ приготовления для домашнего разогрева.",
+  },
+  {
+    title: "Маршрут к материалам уже собран",
+    text: "Для первого разговора уже есть каталог, B2B-раздел, корпоративный раздел и форма запроса.",
   },
 ];
 
-const networkFit = [
+const sellInCards = [
   {
-    title: "Удобно считывается на полке",
-    text: "Ассортимент собран вокруг понятных вкусов и не требует сложной матрицы для первого запуска.",
+    title: "Ассортимент",
+    items: [
+      "В линейке уже собраны классические и более яркие вкусы.",
+      "SKU разведены по ролям: ежедневная классика, семейные хиты, лёгкий выбор.",
+      "Каждый вкус можно открыть как отдельную карточку.",
+    ],
   },
   {
-    title: "Подходит для тестового ввода",
-    text: "Разделение на линейки и вкусовые профили помогает собрать аккуратный пилот под формат конкретного канала.",
+    title: "Экономика",
+    items: [
+      "Списания в заморозке в 3–4 раза ниже, чем в охлаждённой кулинарии.",
+      "Формат линейки позволяет начинать с ограниченного набора SKU.",
+      "Пилотный запуск можно обсуждать через отдельную форму.",
+    ],
   },
   {
-    title: "Работает на массовый сценарий",
-    text: "Продукт ориентирован на регулярную покупку, а не на нишевый гастрономический спрос.",
-  },
-  {
-    title: "Поддерживается материалами",
-    text: "Сайт уже разведен по маршрутам: продукция, B2B-раздел, документы и контактный сценарий для старта переговоров.",
+    title: "Удобство для полки",
+    items: [
+      "Продукт подаётся как готовое блюдо для повседневного спроса.",
+      "Карточки SKU уже показывают вкус, формат, хранение и приготовление.",
+      "Сайт разведён по маршрутам: продукция, для сетей, о компании, где купить, контакты.",
+    ],
   },
 ];
 
-const packagingBenefits = [
+const assortmentCards = [
+  {
+    title: "Ежедневная классика",
+    text: "Сливочные и привычные вкусы для регулярной покупки без сложного выбора.",
+  },
+  {
+    title: "Семейные хиты",
+    text: "Более сытные позиции для сценария домашнего ужина.",
+  },
+  {
+    title: "Лёгкий выбор",
+    text: "Более мягкие и овощные вкусы для расширения линейки без перегруза полки.",
+  },
+];
+
+const formatCards = [
   {
     title: "Формат линейки 400 г",
-    text: "Упаковочная логика линейки уже читается на сайте и в карточках SKU. Такой формат можно использовать как базовую опору в переговорах.",
-  },
-  {
-    title: "Пакет семейного формата",
-    text: "Карточки продуктов уже собраны в единой логике упаковки. Детальные физические параметры и паллетные данные на сайте пока не заявлены и должны добавляться отдельно.",
+    text: "Упаковка 400 г уже используется на сайте и в карточках SKU как базовый формат линейки.",
   },
   {
     title: "Понятная роль в категории",
-    text: "Продукт подается как готовая замороженная паста для повседневного спроса, а не как разовая гастрономическая новинка.",
+    text: "Продукт подаётся как готовая замороженная паста для повседневного спроса.",
+  },
+  {
+    title: "Детали по запросу",
+    text: "Подробные параметры для ввода в сеть и документы должны открываться через отдельный запрос.",
   },
 ];
 
-const marketingSupport = [
+const materialCards = [
   {
-    title: "Презентация для первого обсуждения",
-    text: "На странице уже встроен PDF-файл, который можно использовать как базовый материал для первичного диалога.",
+    title: "Что уже готово для первого контакта",
+    items: [
+      "Презентация для первого обсуждения",
+      "Карточки SKU и продуктовая структура",
+      "Контактный маршрут для запроса",
+    ],
   },
   {
-    title: "Карточки SKU и продуктовая структура",
-    text: "Каждый вкус имеет отдельную страницу, а раздел продукции уже работает как цифровой каталог для байера и партнера.",
-  },
-  {
-    title: "Контентный каркас под sell-in",
-    text: "При подтверждении фактов сайт можно быстро дополнить документами, страницей качества и новостями без пересборки архитектуры.",
-  },
-];
-
-const trustLinks = [
-  {
-    href: "/o-kompanii/",
-    title: "О компании",
-    text: "Корпоративный раздел подготовлен как контейнер для подтвержденной информации о компании и бренде.",
-  },
-  {
-    href: "/proizvodstvo-i-kachestvo/",
-    title: "Производство и качество",
-    text: "Раздел вынесен отдельно, чтобы не перегружать sell-in-страницу неподтвержденными деталями о производстве.",
-  },
-  {
-    href: "/dokumenty/",
-    title: "Документы",
-    text: "На сайте уже предусмотрен отдельный реестр под сертификаты, спецификации и коммерческие материалы.",
+    title: "Где искать подтверждающие разделы",
+    items: [
+      "О компании",
+      "Продукция и карточки SKU",
+      "Контакты",
+      "Отдельный маршрут для запроса документов",
+    ],
   },
 ];
 
-const featuredB2BProductSlugs = [
-  "alfredo-kuritsa",
-  "karbonara",
-  "vetchina-griby-slivochny-sous",
-  "pasta-frikadelki-tomatny-sous",
-];
-const featuredB2BProducts = featuredB2BProductSlugs
+const featuredB2BProducts = ["alfredo-kuritsa", "karbonara", "vetchina-griby-slivochny-sous", "pasta-frikadelki-tomatny-sous"]
   .map((slug) => products.find((product) => product.slug === slug))
   .filter(Boolean);
 ---
@@ -121,35 +133,47 @@ const featuredB2BProducts = featuredB2BProductSlugs
   <section class="page-intro">
     <div class="container page-intro__inner">
       <p class="eyebrow">Для сетей</p>
-      <h1>Pastodel для торговых сетей, дистрибьюторов и пилотных запусков</h1>
-      <p>
-        Это основной B2B-раздел сайта. Здесь собрана короткая sell-in-логика:
-        что это за продукт, почему он понятен массовому покупателю, как устроен
-        ассортимент и с какого шага удобно начинать диалог.
-      </p>
-      <div class="button-group">
-        <a class="button" href="/kontakty/">Обсудить запуск</a>
-        <a class="button button--secondary" href="/docs/pastodel-b2b-placeholder.pdf" download>
-          Запросить презентацию
-        </a>
-        <a class="button button--ghost" href="/kontakty/">
-          Запросить условия
-        </a>
-      </div>
+      <h1>Готовые пасты Pastodel для сетей и дистрибьюторов</h1>
+      <p>В этом разделе собраны материалы для первого разговора: структура ассортимента, логика полки, карточки SKU и форма запроса.</p>
+      <ul class="pd-badge-list">
+        <li class="pd-badge">400 г</li>
+        <li class="pd-badge">SKU-каталог</li>
+        <li class="pd-badge">Форма запроса</li>
+        <li class="pd-badge">Материалы для первого контакта</li>
+      </ul>
     </div>
   </section>
 
   <section class="section section--tight-top">
     <div class="container">
-      <SectionHeading
-        eyebrow="Кому подходит"
-        title="С кем удобнее всего начинать обсуждение"
-        text="Этот блок отвечает на первый вопрос байера: для какого канала и формата партнерства подходит линейка."
-      />
+      <div class="pd-section-head">
+        <p class="pd-eyebrow">Кому подходит</p>
+        <h2>С кем удобнее всего начинать обсуждение</h2>
+      </div>
+      <div class="pd-grid pd-grid--3">
+        {introCards.map((item) => (
+          <article class="pd-channel-card">
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+            <p class="pd-form-note">{item.example}</p>
+            <div class="button-group button-group--spaced">
+              <a class="pd-button pd-button--ghost" href="/kontakty/">{item.cta}</a>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
 
-      <div class="cards-grid">
-        {buyerIntro.map((item) => (
-          <article class="feature-card">
+  <section class="section">
+    <div class="container">
+      <div class="pd-section-head">
+        <p class="pd-eyebrow">Для сети</p>
+        <h2>Чем Pastodel удобен для ввода в матрицу</h2>
+      </div>
+      <div class="pd-grid pd-grid--4">
+        {matrixCards.map((item) => (
+          <article class="pd-feature-card">
             <h3>{item.title}</h3>
             <p>{item.text}</p>
           </article>
@@ -160,75 +184,44 @@ const featuredB2BProducts = featuredB2BProductSlugs
 
   <section class="section">
     <div class="container">
-      <SectionHeading
-        eyebrow="Покупательский сценарий"
-        title="Почему формат понятен массовому покупателю"
-        text="Блок нужен для sell-in-аргументации: байер должен быстро увидеть, что продукт опирается на узнаваемое потребительское поведение."
-      />
-
-      <div class="feature-grid">
-        {consumerFit.map((item) => (
-          <article class="feature-card">
-            <h3>{item.title}</h3>
-            <p>{item.text}</p>
-          </article>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="container">
-      <SectionHeading
-        eyebrow="Для сети"
-        title="Чем Pastodel удобен для ввода в матрицу"
-        text="Задача блока — показать аргументы для сети без перегруза цифрами и неподтвержденными обещаниями."
-      />
-
-      <div class="feature-grid">
-        {networkFit.map((item) => (
-          <article class="feature-card">
-            <h3>{item.title}</h3>
-            <p>{item.text}</p>
-          </article>
-        ))}
-      </div>
-
-      <div class="partner-card partner-card--spaced">
-        <p class="eyebrow">Короткий sell-in list</p>
+      <div class="pd-section-head">
+        <p class="pd-eyebrow">Sell-in</p>
         <h2>Основные аргументы для первого разговора</h2>
-        <ul class="detail-list detail-list--spaced">
-          {networkBenefits.map((item) => (
-            <li>{item}</li>
-          ))}
-        </ul>
+      </div>
+      <div class="pd-grid pd-grid--3">
+        {sellInCards.map((item) => (
+          <article class="pd-sellin-card">
+            <h3>{item.title}</h3>
+            <ul class="detail-list detail-list--spaced">
+              {item.items.map((point) => (
+                <li>{point}</li>
+              ))}
+            </ul>
+          </article>
+        ))}
       </div>
     </div>
   </section>
 
   <section class="section">
     <div class="container">
-      <SectionHeading
-        eyebrow="Ассортимент"
-        title="Какие SKU уже собраны в линейке"
-        text="Страница не заменяет раздел продукции, но показывает структуру ассортимента и помогает быстро перейти в отдельные карточки."
-      />
-
-      <div class="partner-grid">
-        {partnerAssortment.map((item) => (
-          <article class="assortment-card">
+      <div class="pd-section-head">
+        <p class="pd-eyebrow">Ассортимент</p>
+        <h2>Какие SKU уже собраны в линейке</h2>
+      </div>
+      <div class="pd-grid pd-grid--3">
+        {assortmentCards.map((item) => (
+          <article class="pd-feature-card">
             <h3>{item.title}</h3>
             <p>{item.text}</p>
           </article>
         ))}
       </div>
-
       <div class="products-grid products-grid--spaced">
         {featuredB2BProducts.map((product) => (
-          <ProductCard product={product} />
+          <ProductCard product={product} primaryLabel="Смотреть SKU" />
         ))}
       </div>
-
       <div class="button-group button-group--spaced">
         <a class="button" href="/katalog/">Смотреть весь ассортимент</a>
       </div>
@@ -237,15 +230,13 @@ const featuredB2BProducts = featuredB2BProductSlugs
 
   <section class="section">
     <div class="container">
-      <SectionHeading
-        eyebrow="Формат и категория"
-        title="Что важно знать про упаковку и роль продукта"
-        text="Здесь оставлены только подтвержденные и нейтральные формулировки. Детальные параметры можно добавить позже, когда они будут согласованы."
-      />
-
-      <div class="cards-grid">
-        {packagingBenefits.map((item) => (
-          <article class="feature-card">
+      <div class="pd-section-head">
+        <p class="pd-eyebrow">Формат и категория</p>
+        <h2>Формат и категория</h2>
+      </div>
+      <div class="pd-grid pd-grid--3">
+        {formatCards.map((item) => (
+          <article class="pd-feature-card">
             <h3>{item.title}</h3>
             <p>{item.text}</p>
           </article>
@@ -255,137 +246,82 @@ const featuredB2BProducts = featuredB2BProductSlugs
   </section>
 
   <section class="section">
-    <div class="container split-grid">
-      <article class="partner-card">
-        <p class="eyebrow">Маркетинговая поддержка</p>
-        <h2>Что уже готово для первого контакта</h2>
-        <div class="detail-stack">
-          {marketingSupport.map((item) => (
-            <div>
-              <h3>{item.title}</h3>
-              <p>{item.text}</p>
-            </div>
-          ))}
-        </div>
-        <div class="button-group button-group--spaced">
-          <a class="button" href="/docs/pastodel-b2b-placeholder.pdf" download>
-            Скачать презентацию
-          </a>
-          <a class="button button--ghost" href="/dokumenty/">Запросить документы</a>
-        </div>
-      </article>
-
-      <article class="partner-card">
-        <p class="eyebrow">Блок доверия</p>
-        <h2>Где на сайте искать подтверждающие разделы</h2>
-        <div class="detail-stack">
-          {trustLinks.map((item) => (
-            <div>
-              <h3><a href={item.href}>{item.title}</a></h3>
-              <p>{item.text}</p>
-            </div>
-          ))}
-        </div>
-      </article>
+    <div class="container pd-grid pd-grid--2">
+      {materialCards.map((item) => (
+        <article class="pd-material-card">
+          <h3>{item.title}</h3>
+          <ul class="detail-list detail-list--spaced">
+            {item.items.map((point) => (
+              <li>{point}</li>
+            ))}
+          </ul>
+        </article>
+      ))}
     </div>
   </section>
 
   <section class="section">
-    <div class="container split-grid">
-      <form class="form-card" onsubmit="event.preventDefault()">
-        <SectionHeading
-          eyebrow="Старт диалога"
-          title="Как начать работу"
-          text="Форма собрана как статическая заготовка для коммерческого запроса. Ее можно подключить к CRM или почтовому обработчику без изменения структуры страницы."
-        />
+    <div class="container pd-form-shell">
+      <form class="form-card" data-validated-form novalidate>
+        <div class="pd-section-head">
+          <p class="pd-eyebrow">Форма запроса</p>
+          <h2>Оставьте B2B-запрос по линейке</h2>
+        </div>
 
         <div class="form-grid">
           <div class="field">
-            <label for="company">Компания</label>
-            <input id="company" name="company" type="text" placeholder="Название компании" />
+            <label for="partner-name">Имя</label>
+            <input id="partner-name" name="name" type="text" placeholder="Как к вам обращаться" data-required-field />
+            <p class="pd-form-error" data-error-for="name"></p>
           </div>
-
           <div class="field">
-            <label for="channel">Формат сотрудничества</label>
-            <select id="channel" name="channel">
-              <option>Федеральная сеть</option>
-              <option>Региональная сеть</option>
+            <label for="partner-company">Компания</label>
+            <input id="partner-company" name="company" type="text" placeholder="Название сети или партнёра" data-required-field />
+            <p class="pd-form-error" data-error-for="company"></p>
+          </div>
+          <div class="field">
+            <label for="partner-email">Email</label>
+            <input id="partner-email" name="email" type="email" placeholder="name@company.ru" data-required-field />
+            <p class="pd-form-error" data-error-for="email"></p>
+          </div>
+          <div class="field">
+            <label for="partner-role">Роль</label>
+            <select id="partner-role" name="role" data-required-field>
+              <option value="">Выберите сценарий</option>
+              <option>Байер / категория</option>
               <option>Дистрибьютор</option>
+              <option>Оптовый партнёр</option>
               <option>Пилотный запуск</option>
             </select>
+            <p class="pd-form-error" data-error-for="role"></p>
           </div>
-
           <div class="field">
-            <label for="name">Контактное лицо</label>
-            <input id="name" name="name" type="text" placeholder="Имя и должность" />
-          </div>
-
-          <div class="field">
-            <label for="email">Email</label>
-            <input id="email" name="email" type="email" placeholder="partners@company.ru" />
-          </div>
-
-          <div class="field">
-            <label for="phone">Телефон</label>
-            <input id="phone" name="phone" type="tel" placeholder="+7 (___) ___-__-__" />
-          </div>
-
-          <div class="field">
-            <label for="request-type">Что нужно</label>
-            <select id="request-type" name="requestType">
-              <option>Обсудить запуск</option>
-              <option>Запросить презентацию</option>
-              <option>Запросить условия</option>
-              <option>Связаться с отделом продаж</option>
+            <label for="partner-sku-count">Количество SKU для теста</label>
+            <select id="partner-sku-count" name="sku_count">
+              <option value="2">2 SKU</option>
+              <option value="3">3 SKU</option>
+              <option value="4">4 SKU</option>
+              <option value="5plus">5+ SKU</option>
             </select>
           </div>
-
           <div class="field field--full">
-            <label for="message">Комментарий</label>
-            <textarea
-              id="message"
-              name="message"
-              placeholder="Опишите формат канала, интересующие SKU, ожидаемый сценарий запуска или состав материалов, которые нужны для первого обсуждения."
-            ></textarea>
+            <label for="partner-message">Комментарий</label>
+            <textarea id="partner-message" name="message" placeholder="Какие SKU или формат канала вас интересуют?" data-required-field></textarea>
+            <p class="pd-form-error" data-error-for="message"></p>
           </div>
         </div>
 
-        <p class="form-note">
-          Демо-версия: форма не отправляет данные без подключения обработчика.
-          Отправляя запрос после подключения формы, пользователь должен быть
-          ознакомлен с <a href="/politika-konfidentsialnosti/">политикой конфиденциальности</a> и
-          <a href="/soglasie-na-obrabotku-dannyh/"> согласием на обработку данных</a>.
-        </p>
-
+        <label class="pd-checkbox">
+          <input type="checkbox" name="privacy" required />
+          <span>Я согласен с политикой конфиденциальности и обработкой персональных данных.</span>
+        </label>
+        <p class="pd-form-error" data-error-for="privacy"></p>
         <div class="button-group">
-          <button class="button" type="button">Отправить запрос</button>
+          <button class="button" type="submit">Отправить заявку</button>
         </div>
+        <p class="pd-form-note">Сейчас форма работает как интерфейс для будущего подключения обработчика.</p>
+        <p class="pd-form-success" data-form-success hidden>Спасибо. Форма заполнена корректно.</p>
       </form>
-
-      <div class="partner-card">
-        <p class="eyebrow">Прямые действия</p>
-        <h2>Если удобнее начать без формы</h2>
-        <div class="detail-stack">
-          <div>
-            <h3>Связаться с отделом продаж</h3>
-            <p><a href="/kontakty/">Перейти в контакты</a></p>
-          </div>
-          <div>
-            <h3>Обсудить запуск</h3>
-            <p><a href="/kontakty/">Перейти в контакты</a></p>
-          </div>
-          <div>
-            <h3>Запросить презентацию</h3>
-            <p><a href="/docs/pastodel-b2b-placeholder.pdf" download>Скачать PDF</a></p>
-          </div>
-          <div>
-            <h3>Запросить условия</h3>
-            <p>
-              <a href="/kontakty/">Открыть форму запроса</a>
-            </p>
-          </div>
-        </div>
-      </div>
     </div>
   </section>
 </BaseLayout>

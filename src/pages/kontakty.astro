@@ -1,6 +1,5 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import SectionHeading from "../components/SectionHeading.astro";
 
 const requestRoutes = [
   {
@@ -17,9 +16,9 @@ const requestRoutes = [
   },
   {
     title: "Общие и корпоративные запросы",
-    text: "Если вопрос не относится напрямую к покупке или запуску, используйте общую форму. Так страница остается честной даже без публикации прямых контактных данных.",
-    href: "/dokumenty/",
-    cta: "Документы",
+    text: "Если вопрос не относится напрямую к покупке или запуску, используйте общую форму.",
+    href: "/kontakty/",
+    cta: "Написать нам",
   },
 ];
 
@@ -34,26 +33,21 @@ const contactScenarios = [
   },
   {
     title: "Для общего обращения",
-    text: "Если вопрос не связан с конкретным SKU, используйте форму как единую точку входа. После подключения рабочих каналов страница может быть дополнена прямыми контактами.",
+    text: "Если вопрос не связан с конкретным SKU, используйте форму как единую точку входа.",
   },
 ];
 ---
 
 <BaseLayout
   title="Контакты Pastodel"
-  description="Контакты Pastodel: единая точка входа для покупателей, торговых сетей и общих запросов без фейковых контактных данных."
+  description="Контакты Pastodel: единая точка входа для покупателей, торговых сетей и общих запросов."
   canonical="/kontakty/"
 >
   <section class="page-intro">
     <div class="container page-intro__inner">
       <p class="eyebrow">Контакты</p>
       <h1>Связаться с Pastodel</h1>
-      <p>
-        Эта страница собрана как единая точка входа для разных сценариев:
-        покупка продукта, B2B-обращение, корпоративный или общий запрос. Пока
-        прямые рабочие контакты не опубликованы, сайт использует честную
-        маршрутизацию через разделы и форму запроса.
-      </p>
+      <p>Выберите подходящий маршрут обращения и оставьте запрос через форму.</p>
       <div class="button-group">
         <a class="button" href="/partneram/">Для сетей</a>
         <a class="button button--secondary" href="/katalog/">Каталог</a>
@@ -64,19 +58,17 @@ const contactScenarios = [
 
   <section class="section section--tight-top">
     <div class="container">
-      <SectionHeading
-        eyebrow="Сценарии обращения"
-        title="Какой маршрут подходит именно вам"
-        text="Вместо списка неподтвержденных телефонов и адресов страница сначала помогает выбрать правильный путь обращения."
-      />
-
-      <div class="contacts-grid">
+      <div class="pd-section-head">
+        <p class="pd-eyebrow">Сценарии обращения</p>
+        <h2>Карточки маршрутов обращения</h2>
+      </div>
+      <div class="pd-grid pd-grid--3">
         {requestRoutes.map((item) => (
-          <article class="contact-card">
+          <article class="pd-channel-card">
             <h3>{item.title}</h3>
             <p>{item.text}</p>
             <div class="button-group button-group--spaced">
-              <a class="button button--ghost" href={item.href}>{item.cta}</a>
+              <a class="pd-button pd-button--ghost" href={item.href}>{item.cta}</a>
             </div>
           </article>
         ))}
@@ -86,15 +78,13 @@ const contactScenarios = [
 
   <section class="section">
     <div class="container">
-      <SectionHeading
-        eyebrow="Что указать в запросе"
-        title="Какие обращения страница поддерживает уже сейчас"
-        text="Блок помогает сделать форму полезной даже без подключения CRM, карты или опубликованных рабочих контактов."
-      />
-
-      <div class="cards-grid">
+      <div class="pd-section-head">
+        <p class="pd-eyebrow">Что указать в запросе</p>
+        <h2>Какие обращения страница поддерживает уже сейчас</h2>
+      </div>
+      <div class="pd-grid pd-grid--3">
         {contactScenarios.map((item) => (
-          <article class="feature-card">
+          <article class="pd-feature-card">
             <h3>{item.title}</h3>
             <p>{item.text}</p>
           </article>
@@ -104,111 +94,69 @@ const contactScenarios = [
   </section>
 
   <section class="section">
-    <div class="container split-grid">
-      <form class="form-card" onsubmit="event.preventDefault()">
-        <SectionHeading
-          eyebrow="Форма запроса"
-          title="Отправьте обращение по нужному сценарию"
-          text="Форма пока работает как статический интерфейс и не отправляет данные без подключения обработчика. Но структура уже готова для последующей интеграции."
-        />
+    <div class="container pd-form-shell">
+      <form class="form-card" data-validated-form novalidate>
+        <div class="pd-section-head">
+          <p class="pd-eyebrow">Форма запроса</p>
+          <h2>Напишите нам через форму</h2>
+          <p class="pd-lead">Укажите тему обращения, компанию или канал и удобный способ связи.</p>
+        </div>
 
         <div class="form-grid">
           <div class="field">
             <label for="contact-name">Имя</label>
-            <input id="contact-name" name="name" type="text" placeholder="Как к вам обращаться" />
+            <input id="contact-name" name="name" type="text" placeholder="Как к вам обращаться" data-required-field />
+            <p class="pd-form-error" data-error-for="name"></p>
           </div>
-
           <div class="field">
             <label for="contact-company">Компания или канал</label>
-            <input id="contact-company" name="company" type="text" placeholder="Сеть, дистрибьютор, покупатель, медиа" />
+            <input id="contact-company" name="company" type="text" placeholder="Сеть, дистрибьютор, покупатель, медиа" data-required-field />
+            <p class="pd-form-error" data-error-for="company"></p>
           </div>
-
           <div class="field">
-            <label for="contact-topic">Сценарий</label>
-            <select id="contact-topic" name="topic">
+            <label for="contact-topic">Тема обращения</label>
+            <select id="contact-topic" name="topic" data-required-field>
+              <option value="">Выберите тему обращения</option>
               <option>Запуск в сети / B2B</option>
               <option>Вопрос по конкретному SKU</option>
               <option>Уточнение наличия</option>
               <option>Общий запрос</option>
             </select>
+            <p class="pd-form-error" data-error-for="topic"></p>
           </div>
-
           <div class="field">
             <label for="contact-reply">Как с вами связаться</label>
-            <input id="contact-reply" name="reply" type="text" placeholder="Email, телефон или удобный способ ответа" />
+            <input id="contact-reply" name="reply" type="text" placeholder="Email, телефон или удобный способ ответа" data-required-field />
+            <p class="pd-form-error" data-error-for="reply"></p>
           </div>
-
+          <div class="field">
+            <label for="contact-email">Email</label>
+            <input id="contact-email" name="email" type="email" placeholder="name@company.ru" data-required-field />
+            <p class="pd-form-error" data-error-for="email"></p>
+          </div>
           <div class="field field--full">
             <label for="contact-message">Сообщение</label>
-            <textarea
-              id="contact-message"
-              name="message"
-              placeholder="Опишите, какой продукт, канал или тип сотрудничества вас интересует."
-            ></textarea>
+            <textarea id="contact-message" name="message" placeholder="Опишите, какой продукт, канал или тип сотрудничества вас интересует." data-required-field></textarea>
+            <p class="pd-form-error" data-error-for="message"></p>
           </div>
         </div>
 
-        <p class="form-note">
-          Статический режим: форма не отправляет данные без подключения обработчика. Сейчас она работает как честный интерфейс запроса и каркас для дальнейшей интеграции.
-        </p>
-        <p class="form-note">
-          После подключения обработчика рядом с формой должны использоваться
-          <a href="/politika-konfidentsialnosti/"> политика конфиденциальности</a> и
-          <a href="/soglasie-na-obrabotku-dannyh/"> согласие на обработку данных</a>.
-        </p>
+        <label class="pd-checkbox">
+          <input type="checkbox" name="privacy" required />
+          <span>Я согласен с политикой конфиденциальности и обработкой персональных данных.</span>
+        </label>
+        <p class="pd-form-error" data-error-for="privacy"></p>
 
         <div class="button-group">
-          <button class="button" type="button">Подготовить запрос</button>
+          <button class="button" type="submit">Отправить сообщение</button>
         </div>
+        <p class="pd-form-note">Форма работает как интерфейс для будущего подключения обработчика.</p>
+        <p class="pd-form-success" data-form-success hidden>Спасибо. Сообщение принято.</p>
       </form>
-
-      <div class="legal-grid">
-        <article class="legal-card">
-          <h3>Для сетей</h3>
-          <ul>
-            <li>Раздел «Для сетей» уже собран как основной B2B-маршрут.</li>
-            <li>Каталог и карточки SKU можно использовать как основу для обсуждения ассортимента.</li>
-            <li>Материалы и документы вынесены в отдельный раздел.</li>
-          </ul>
-        </article>
-
-        <article class="legal-card">
-          <h3>Для покупателей</h3>
-          <ul>
-            <li>Сначала откройте каталог и карточку нужного SKU.</li>
-            <li>Затем используйте страницу «Где купить» как честный маршрут уточнения.</li>
-            <li>Если вопрос остается, отправьте запрос через форму.</li>
-          </ul>
-        </article>
-
-        <article class="legal-card">
-          <h3>О публикации контактов</h3>
-          <ul>
-            <li>Прямые рабочие контакты на сайте пока не опубликованы.</li>
-            <li>Страница не показывает неподтвержденные телефон, email, адрес или карту.</li>
-            <li>После согласования каналов эту секцию можно дополнить без изменения структуры.</li>
-          </ul>
-        </article>
-      </div>
     </div>
   </section>
 
-  <section class="section">
-    <div class="container">
-      <div class="cta-strip surface-card">
-        <p class="eyebrow">Следующий шаг</p>
-        <h2>Для сети, покупателя и общего запроса на сайте уже есть отдельные маршруты</h2>
-        <p>
-          Если вопрос относится к запуску линейки, переходите в «Для сетей». Если
-          вы ищете конкретный вкус, используйте каталог и страницу «Где купить».
-          Если нужен общий запрос, используйте форму на этой странице.
-        </p>
-        <div class="button-group">
-          <a class="button" href="/partneram/">Для сетей</a>
-          <a class="button button--secondary" href="/dokumenty/">Документы</a>
-          <a class="button button--ghost" href="/gde-kupit/">Где купить</a>
-        </div>
-      </div>
-    </div>
+  <section class="pd-section pd-direct-contacts pd-is-hidden">
+    <!-- заполнить после передачи подтверждённых контактов -->
   </section>
 </BaseLayout>

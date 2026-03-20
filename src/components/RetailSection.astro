@@ -1,0 +1,211 @@
+---
+const benefits = ["400 г", "Знакомые вкусы", "Простой сценарий приготовления", "Условия пилота по запросу"];
+---
+
+<section class="retail-section" id="retail" aria-labelledby="retail-title">
+  <div class="container retail-section__grid">
+    <div class="retail-section__content">
+      <p class="retail-section__eyebrow">ДЛЯ РИТЕЙЛА</p>
+      <h2 id="retail-title">Готовые пасты Pastodel — понятный продукт для повседневного спроса</h2>
+      <p class="retail-section__lead">
+        Знакомые вкусы, формат 400 г и простой сценарий приготовления дома помогают быстро оценить линейку без сложного входа. Оставьте заявку — пришлём ассортимент, спецификации и условия пилота.
+      </p>
+
+      <ul class="pd-badge-list" aria-label="Преимущества для ритейла">
+        {benefits.map((benefit) => (
+          <li class="pd-badge">{benefit}</li>
+        ))}
+      </ul>
+    </div>
+
+    <form class="retail-form" data-validated-form novalidate>
+      <div class="retail-form__heading">
+        <h3>Стать партнёром</h3>
+        <p>Ответим и отправим информацию по линейке и условиям сотрудничества.</p>
+      </div>
+
+      <div class="retail-form__grid">
+        <div class="field">
+          <label for="retail-name">Имя</label>
+          <input id="retail-name" name="name" type="text" placeholder="Как к вам обращаться" data-required-field />
+          <p class="pd-form-error" data-error-for="name"></p>
+        </div>
+
+        <div class="field">
+          <label for="retail-company">Компания</label>
+          <input id="retail-company" name="company" type="text" placeholder="Название компании" data-required-field />
+          <p class="pd-form-error" data-error-for="company"></p>
+        </div>
+
+        <div class="field">
+          <label for="retail-phone">Телефон</label>
+          <input
+            id="retail-phone"
+            name="phone"
+            type="tel"
+            inputmode="tel"
+            autocomplete="tel"
+            placeholder="+7 (___) ___-__-__"
+            data-required-field
+          />
+          <p class="pd-form-error" data-error-for="phone"></p>
+        </div>
+
+        <div class="field">
+          <label for="retail-email">Email</label>
+          <input
+            id="retail-email"
+            name="email"
+            type="email"
+            autocomplete="email"
+            placeholder="name@company.ru"
+            data-required-field
+          />
+          <p class="pd-form-error" data-error-for="email"></p>
+        </div>
+
+        <div class="field">
+          <label for="sku-count">Количество SKU для теста</label>
+          <select id="sku-count" name="sku_count">
+            <option value="2">2 SKU</option>
+            <option value="3">3 SKU</option>
+            <option value="4">4 SKU</option>
+            <option value="5plus">5+ SKU</option>
+          </select>
+        </div>
+      </div>
+
+      <label class="pd-checkbox">
+        <input type="checkbox" name="privacy" required />
+        <span>Я согласен с политикой конфиденциальности и обработкой персональных данных.</span>
+      </label>
+      <p class="pd-form-error" data-error-for="privacy"></p>
+
+      <button class="button retail-form__submit" type="submit">Отправить заявку</button>
+      <p class="pd-form-note">
+        Сейчас форма работает как интерфейс для будущего подключения обработчика.
+      </p>
+      <p class="pd-form-success retail-form__success" data-form-success hidden>
+        Спасибо. Форма заполнена корректно.
+      </p>
+    </form>
+  </div>
+</section>
+
+<style>
+  .retail-section {
+    padding: clamp(72px, 8vw, 112px) 0;
+  }
+
+  .retail-section__grid {
+    display: grid;
+    gap: 24px;
+    padding: clamp(28px, 3.4vw, 40px);
+    border: 1px solid var(--border);
+    border-radius: 34px;
+    background:
+      radial-gradient(circle at 12% 16%, rgba(255, 253, 249, 0.75), transparent 24%),
+      linear-gradient(180deg, rgba(251, 247, 241, 0.98), rgba(239, 230, 218, 0.9));
+    box-shadow: 0 18px 36px rgba(36, 28, 24, 0.04);
+  }
+
+  .retail-section__content {
+    display: grid;
+    gap: 20px;
+    align-content: start;
+  }
+
+  .retail-section__eyebrow {
+    margin: 0;
+    color: var(--brand-accent);
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  .retail-section__lead,
+  .retail-section__note {
+    margin: 0;
+    max-width: 34rem;
+    color: var(--text-secondary);
+    line-height: 1.65;
+  }
+
+  .retail-section__lead {
+    color: var(--text-primary);
+    font-size: clamp(1.08rem, 1.8vw, 1.28rem);
+    line-height: 1.58;
+  }
+
+  .retail-form {
+    display: grid;
+    gap: 20px;
+    padding: clamp(24px, 3vw, 34px);
+    border: 1px solid var(--border);
+    border-radius: 30px;
+    background: linear-gradient(180deg, rgba(255, 253, 249, 0.98), rgba(255, 250, 245, 0.96));
+    box-shadow: 0 24px 42px rgba(36, 28, 24, 0.06);
+  }
+
+  .retail-form__heading h3 {
+    margin: 0 0 8px;
+    font-family: var(--font-sans);
+    font-size: 1.35rem;
+    font-weight: 600;
+    letter-spacing: 0;
+  }
+
+  .retail-form__heading p,
+  .retail-form__success {
+    margin: 0;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+
+  .retail-form__grid {
+    display: grid;
+    gap: 16px;
+  }
+
+  .field {
+    display: grid;
+    gap: 8px;
+  }
+
+  .field label {
+    font-size: 0.95rem;
+    font-weight: 500;
+  }
+
+  .retail-form__submit {
+    width: 100%;
+    min-height: 58px;
+  }
+
+  @media (min-width: 960px) {
+    .retail-section__grid {
+      grid-template-columns: minmax(0, 1fr) minmax(450px, 0.94fr);
+      align-items: start;
+    }
+
+    .retail-form__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 719px) {
+    .retail-section__grid {
+      padding: 22px;
+      gap: 20px;
+    }
+
+    .retail-form {
+      padding: 20px;
+    }
+
+    .retail-form__submit {
+      min-height: 54px;
+    }
+  }
+</style>
