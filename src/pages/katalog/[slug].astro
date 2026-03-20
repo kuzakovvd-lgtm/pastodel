@@ -61,10 +61,22 @@ const bridgeLinks = [
   },
 ];
 
+const siteUrl = Astro.site?.toString() ?? brand.siteUrl;
+
 const productSchema = {
   "@context": "https://schema.org",
-  "@type": "Product",
-  name: product.title,
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Главная", item: siteUrl },
+        { "@type": "ListItem", position: 2, name: "Продукция", item: `${siteUrl}katalog/` },
+        { "@type": "ListItem", position: 3, name: product.title, item: `${siteUrl}katalog/${product.slug}/` },
+      ],
+    },
+    {
+      "@type": "Product",
+      name: product.title,
   description: product.description,
   sku: product.sku,
   category: `Замороженная готовая паста — ${product.lineLabel}`,
@@ -96,6 +108,8 @@ const productSchema = {
       "@type": "PropertyValue",
       name: "Способ приготовления",
       value: product.cooking.join(" "),
+    },
+  ],
     },
   ],
 };

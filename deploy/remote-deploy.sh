@@ -22,6 +22,7 @@ tar -xzf "$ARCHIVE_PATH" -C "$APP_DIR"
 cleanup_macos_junk "$APP_DIR" "$WEB_ROOT"
 
 cd "$APP_DIR"
+npm ci --prefer-offline 2>/dev/null || npm install
 npm run build
 
 if command -v rsync >/dev/null 2>&1; then
